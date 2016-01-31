@@ -26,6 +26,7 @@ Austin, Austin, TX 78712
 
 
 Repository contains all output of the analysis used in "Serial passaging causes extensive positive selection in seasonal influenza A hemagglutinin"
+
 *All FASTA files have been removed per the GISAID user agreement*
 
 ####README contain instructions for fully rerunning this analysis, notes for analysis, and a table of contents for this repository. 
