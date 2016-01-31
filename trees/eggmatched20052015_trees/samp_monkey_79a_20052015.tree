@@ -1,0 +1,173 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=79;
+	taxlabels
+	'PMK1_|_A_ALABAMA_3163_2013'
+	'PMK1_|_A_ALABAMA_4025_2014'
+	'PMK1_|_A_ALABAMA_4226_2014'
+	'PMK1_|_A_ALABAMA_4609_2015'
+	'PMK1_|_A_ALASKA_4028_2014'
+	'PMK1_|_A_CALIFORNIA_3000_2012'
+	'PMK1_|_A_CALIFORNIA_4230_2014'
+	'PMK1_|_A_CALIFORNIA_4737_2015'
+	'PMK1_|_A_COLORADO_4114_2014'
+	'PMK1_|_A_COLORADO_4400_2015'
+	'PMK1_|_A_COLORADO_4616_2015'
+	'PMK1_|_A_DELWARE_4741_2015'
+	'PMK1_|_A_FLORIDA_3092_2012'
+	'PMK1_|_A_FLORIDA_3172_2012'
+	'PMK1_|_A_FLORIDA_4012_2014'
+	'PMK1_|_A_FLORIDA_4034_2014'
+	'PMK1_|_A_FLORIDA_4128_2014'
+	'PMK1_|_A_GEORGIA_4040_2014'
+	'PMK1_|_A_GEORGIA_4045_2014'
+	'PMK1_|_A_GEORGIA_4259_2014'
+	'PMK1_|_A_GEORGIA_4268_2014'
+	'PMK1_|_A_GEORGIA_4269_2015'
+	'PMK1_|_A_GEORGIA_4409_2014'
+	'PMK1_|_A_GEORGIA_4413_2014'
+	'PMK1_|_A_GEORGIA_4414_2015'
+	'PMK1_|_A_GEORGIA_4416_2015'
+	'PMK1_|_A_GEORGIA_4629_2015'
+	'PMK1_|_A_KANSAS_4279_2014'
+	'PMK1_|_A_KANSAS_4650_2014'
+	'PMK1_|_A_KANSAS_4653_2015'
+	'PMK1_|_A_LOUISIANA_4147_2014'
+	'PMK1_|_A_MARYLAND_3196_2013'
+	'PMK1_|_A_MASSACHUSETTS_4664_2015'
+	'PMK1_|_A_MISSISSIPPI_4536_2015'
+	'PMK1_|_A_NEBRASKA_3199_2013'
+	'PMK1_|_A_NEBRASKA_4300_2014'
+	'PMK1_|_A_NEBRASKA_4439_2014'
+	'PMK1_|_A_NEBRASKA_4670_2015'
+	'PMK1_|_A_NEBRASKA_4671_2015'
+	'PMK1_|_A_NEVADA_4542_2015'
+	'PMK1_|_A_NEW_JERSEY_4544_2015'
+	'PMK1_|_A_NEW_YORK_3087_2012'
+	'PMK1_|_A_NEW_YORK_3088_2012'
+	'PMK1_|_A_NEW_YORK_3094_2012'
+	'PMK1_|_A_NEW_YORK_3096_2012'
+	'PMK1_|_A_NEW_YORK_3097_2012'
+	'PMK1_|_A_NEW_YORK_3211_2012'
+	'PMK1_|_A_NEW_YORK_3216_2013'
+	'PMK1_|_A_NEW_YORK_3224_2012'
+	'PMK1_|_A_NEW_YORK_3226_2012'
+	'PMK1_|_A_NEW_YORK_3230_2012'
+	'PMK1_|_A_NEW_YORK_4161_2014'
+	'PMK1_|_A_NEW_YORK_4307_2014'
+	'PMK1_|_A_NEW_YORK_4680_2014'
+	'PMK1_|_A_NEW_YORK_4814_2015'
+	'PMK1_|_A_NORTH_CAROLINA_3236_2012'
+	'PMK1_|_A_NORTH_CAROLINA_4185_2014'
+	'PMK1_|_A_NORTH_CAROLINA_4187_2014'
+	'PMK1_|_A_NORTH_CAROLINA_4315_2014'
+	'PMK1_|_A_NORTH_CAROLINA_4316_2014'
+	'PMK1_|_A_OHIO_2987_2012'
+	'PMK1_|_A_OKLAHOMA_4335_2015'
+	'PMK1_|_A_RHODE_ISLAND_4568_2015'
+	'PMK1_|_A_SOUTH_CAROLINA_3241_2012'
+	'PMK1_|_A_SOUTH_CAROLINA_3715_2014'
+	'PMK1_|_A_SOUTH_DAKOTA_3245_2012'
+	'PMK1_|_A_SOUTH_DAKOTA_4471_2015'
+	'PMK1_|_A_TEXAS_4348_2015'
+	'PMK1_|_A_UTAH_4573_2015'
+	'PMK1_|_A_VIRGINIA_4787_2015'
+	'PMK1_|_A_WASHINGTON_3263_2013'
+	'PMK1_|_A_WASHINGTON_3264_2012'
+	'PMK1_|_A_WASHINGTON_4218_2014'
+	'PMK1_|_A_WASHINGTON_4373_2014'
+	'PMK1_|_A_WYOMING_4594_2015'
+	'PMK1_|_A_WYOMING_4730_2015'
+	'PRHMK_3_|_A_NEW_YORK_923_2006'
+	'RHMK_1_|_A_NEW_YORK_352_2005'
+	'RHMK_1_|_A_NEW_YORK_369_2005'
+;
+end;
+
+begin trees;
+	tree tree_1 = [&R] (('RHMK_1_|_A_NEW_YORK_352_2005':0.001235,'RHMK_1_|_A_NEW_YORK_369_2005':6.35E-4):0.002436,('PRHMK_3_|_A_NEW_YORK_923_2006':0.001088,(('PMK1_|_A_FLORIDA_3172_2012':0.007455,('PMK1_|_A_OHIO_2987_2012':0.003126,('PMK1_|_A_NEW_YORK_3211_2012':0.004383,'PMK1_|_A_CALIFORNIA_3000_2012':6.21E-4):0.001248):0.001323):0.00821,(('PMK1_|_A_WASHINGTON_3264_2012':0.003135,('PMK1_|_A_OKLAHOMA_4335_2015':0.006897,((('PMK1_|_A_NEW_YORK_3097_2012':0.001247,('PMK1_|_A_NEW_YORK_3226_2012':6.23E-4,('PMK1_|_A_NEW_YORK_3230_2012':0.001247,'PMK1_|_A_NEW_YORK_3224_2012':6.23E-4):0.0):0.0):0.001872,'PMK1_|_A_WASHINGTON_3263_2013':0.002499):0.0,(('PMK1_|_A_COLORADO_4616_2015':0.002496,('PMK1_|_A_NEW_YORK_3094_2012':0.0,(('PMK1_|_A_SOUTH_CAROLINA_3715_2014':0.005003,('PMK1_|_A_FLORIDA_4012_2014':0.005028,('PMK1_|_A_FLORIDA_4128_2014':0.001869,('PMK1_|_A_FLORIDA_4034_2014':6.23E-4,'PMK1_|_A_NORTH_CAROLINA_4315_2014':0.0):0.0):0.003127):0.00251):0.0,'PMK1_|_A_ALABAMA_4025_2014':0.001871):6.24E-4):0.0):6.23E-4,(('PMK1_|_A_ALABAMA_3163_2013':0.0,'PMK1_|_A_SOUTH_CAROLINA_3241_2012':0.0):0.0,'PMK1_|_A_MARYLAND_3196_2013':0.001247):0.002496):0.0):0.0):0.001883):0.0,(('PMK1_|_A_FLORIDA_3092_2012':0.0,'PMK1_|_A_SOUTH_DAKOTA_3245_2012':0.0):0.0025,(((('PMK1_|_A_NEW_YORK_3087_2012':0.0,'PMK1_|_A_NEW_YORK_3088_2012':0.0,'PMK1_|_A_NEW_YORK_3096_2012':0.0):6.24E-4,'PMK1_|_A_NEW_YORK_3216_2013':0.0):0.001251,('PMK1_|_A_NEBRASKA_3199_2013':6.24E-4,'PMK1_|_A_NORTH_CAROLINA_3236_2012':6.24E-4):6.23E-4):0.001875,('PMK1_|_A_ALABAMA_4609_2015':0.002498,(('PMK1_|_A_CALIFORNIA_4230_2014':0.00125,('PMK1_|_A_MASSACHUSETTS_4664_2015':0.001874,(('PMK1_|_A_CALIFORNIA_4737_2015':0.001248,('PMK1_|_A_KANSAS_4650_2014':6.24E-4,('PMK1_|_A_GEORGIA_4416_2015':0.0,'PMK1_|_A_GEORGIA_4413_2014':0.0):0.0):0.0):0.001249,('PMK1_|_A_NEW_JERSEY_4544_2015':0.0,('PMK1_|_A_DELWARE_4741_2015':6.24E-4,('PMK1_|_A_WYOMING_4730_2015':0.001871,'PMK1_|_A_GEORGIA_4629_2015':0.001248):0.0):0.0):0.0):0.0):0.001249):0.001249,(('PMK1_|_A_WYOMING_4594_2015':0.0,((('PMK1_|_A_NEBRASKA_4670_2015':6.24E-4,(('PMK1_|_A_NEBRASKA_4671_2015':0.0,'PMK1_|_A_GEORGIA_4268_2014':0.0):0.0,'PMK1_|_A_NEBRASKA_4300_2014':6.24E-4):0.0):6.24E-4,((('PMK1_|_A_NEW_YORK_4814_2015':0.002499,('PMK1_|_A_LOUISIANA_4147_2014':0.0,('PMK1_|_A_NEW_YORK_4680_2014':6.24E-4,'PMK1_|_A_KANSAS_4279_2014':6.24E-4):0.0):0.0):6.24E-4,('PMK1_|_A_TEXAS_4348_2015':6.24E-4,'PMK1_|_A_COLORADO_4400_2015':6.24E-4):0.0):0.001873,('PMK1_|_A_NORTH_CAROLINA_4187_2014':0.0,('PMK1_|_A_NORTH_CAROLINA_4185_2014':0.0,'PMK1_|_A_SOUTH_DAKOTA_4471_2015':0.001248):6.24E-4):0.001248):0.0):0.0,('PMK1_|_A_UTAH_4573_2015':0.001873,'PMK1_|_A_NEVADA_4542_2015':0.0025):0.0):0.0):0.0,(('PMK1_|_A_GEORGIA_4269_2015':0.001248,('PMK1_|_A_NORTH_CAROLINA_4316_2014':0.001249,'PMK1_|_A_WASHINGTON_4373_2014':0.001249):0.001874):0.0,(((('PMK1_|_A_NEW_YORK_4307_2014':6.23E-4,'PMK1_|_A_ALASKA_4028_2014':0.0):6.24E-4,('PMK1_|_A_MISSISSIPPI_4536_2015':0.0,('PMK1_|_A_ALABAMA_4226_2014':0.001247,('PMK1_|_A_WASHINGTON_4218_2014':0.00375,'PMK1_|_A_COLORADO_4114_2014':6.23E-4):0.0):0.0):0.0):6.24E-4,'PMK1_|_A_GEORGIA_4045_2014':0.001873):0.0,(('PMK1_|_A_GEORGIA_4414_2015':0.0,'PMK1_|_A_VIRGINIA_4787_2015':0.0,'PMK1_|_A_GEORGIA_4259_2014':0.0):0.0,((('PMK1_|_A_GEORGIA_4040_2014':0.0,'PMK1_|_A_GEORGIA_4409_2014':0.0):6.24E-4,('PMK1_|_A_RHODE_ISLAND_4568_2015':6.24E-4,'PMK1_|_A_KANSAS_4653_2015':0.001875):0.0):0.0,('PMK1_|_A_NEBRASKA_4439_2014':0.001248,'PMK1_|_A_NEW_YORK_4161_2014':6.24E-4):0.0):0.0):0.0):6.24E-4):0.0):0.0):0.0):0.005658):6.28E-4):0.001864):0.00957):0.016823):0.005307);
+end;
+
+begin figtree;
+	set appearance.backgroundColorAttribute="Default";
+	set appearance.backgroundColour=#ffffff;
+	set appearance.branchColorAttribute="User selection";
+	set appearance.branchColorGradient=false;
+	set appearance.branchLineWidth=1.0;
+	set appearance.branchMinLineWidth=0.0;
+	set appearance.branchWidthAttribute="Fixed";
+	set appearance.foregroundColour=#000000;
+	set appearance.hilightingGradient=false;
+	set appearance.selectionColour=#2d3680;
+	set branchLabels.colorAttribute="User selection";
+	set branchLabels.displayAttribute="Branch times";
+	set branchLabels.fontName="sansserif";
+	set branchLabels.fontSize=8;
+	set branchLabels.fontStyle=0;
+	set branchLabels.isShown=false;
+	set branchLabels.significantDigits=4;
+	set layout.expansion=0;
+	set layout.layoutType="RECTILINEAR";
+	set layout.zoom=0;
+	set legend.attribute=null;
+	set legend.fontSize=10.0;
+	set legend.isShown=false;
+	set legend.significantDigits=4;
+	set nodeBars.barWidth=4.0;
+	set nodeBars.displayAttribute=null;
+	set nodeBars.isShown=false;
+	set nodeLabels.colorAttribute="User selection";
+	set nodeLabels.displayAttribute="Node ages";
+	set nodeLabels.fontName="sansserif";
+	set nodeLabels.fontSize=8;
+	set nodeLabels.fontStyle=0;
+	set nodeLabels.isShown=false;
+	set nodeLabels.significantDigits=4;
+	set nodeShape.colourAttribute="User selection";
+	set nodeShape.isShown=false;
+	set nodeShape.minSize=10.0;
+	set nodeShape.scaleType=Width;
+	set nodeShape.shapeType=Circle;
+	set nodeShape.size=4.0;
+	set nodeShape.sizeAttribute="Fixed";
+	set polarLayout.alignTipLabels=false;
+	set polarLayout.angularRange=0;
+	set polarLayout.rootAngle=0;
+	set polarLayout.rootLength=100;
+	set polarLayout.showRoot=true;
+	set radialLayout.spread=0.0;
+	set rectilinearLayout.alignTipLabels=false;
+	set rectilinearLayout.curvature=0;
+	set rectilinearLayout.rootLength=100;
+	set scale.offsetAge=0.0;
+	set scale.rootAge=1.0;
+	set scale.scaleFactor=1.0;
+	set scale.scaleRoot=false;
+	set scaleAxis.automaticScale=true;
+	set scaleAxis.fontSize=8.0;
+	set scaleAxis.isShown=false;
+	set scaleAxis.lineWidth=1.0;
+	set scaleAxis.majorTicks=1.0;
+	set scaleAxis.origin=0.0;
+	set scaleAxis.reverseAxis=false;
+	set scaleAxis.showGrid=true;
+	set scaleBar.automaticScale=true;
+	set scaleBar.fontSize=10.0;
+	set scaleBar.isShown=true;
+	set scaleBar.lineWidth=1.0;
+	set scaleBar.scaleRange=0.0;
+	set tipLabels.colorAttribute="User selection";
+	set tipLabels.displayAttribute="Names";
+	set tipLabels.fontName="sansserif";
+	set tipLabels.fontSize=8;
+	set tipLabels.fontStyle=0;
+	set tipLabels.isShown=true;
+	set tipLabels.significantDigits=4;
+	set trees.order=false;
+	set trees.orderType="increasing";
+	set trees.rooting=false;
+	set trees.rootingType="User Selection";
+	set trees.transform=false;
+	set trees.transformType="cladogram";
+end;
+

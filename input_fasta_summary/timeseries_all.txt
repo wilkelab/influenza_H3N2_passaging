@@ -1,0 +1,8 @@
+file	count
+allyears_cell.fasta 3061
+allyears_egg.fasta 100
+allyears_monkey.fasta 1562
+allyears_nonsiat.fasta 1775
+allyears_other.fasta 1207
+allyears_siat.fasta 1046
+allyears_unpassaged.fasta 1730

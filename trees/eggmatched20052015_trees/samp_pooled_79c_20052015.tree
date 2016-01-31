@@ -1,0 +1,173 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=79;
+	taxlabels
+	'C1_C1_|_A_HAWAII_31_2009'
+	'C1_C2_|_A_MARTINIQUE_12_2007'
+	'C1_|_A_COLORADO_05_2009'
+	'C1_|_A_NEW_YORK_05_2014'
+	'C1_|_A_OREGON_15_2009'
+	'C1_|_A_PENNSYLVANIA_42_2010'
+	'C1_|_A_UTAH_08_2010'
+	'C2_|_A_ALASKA_21_2011'
+	'C2_|_A_CONNECTICUT_08_2014'
+	'C2_|_A_FLORIDA_42_2011'
+	'C2_|_A_KANSAS_09_2010'
+	'C2_|_A_KENTUCKY_06_2012'
+	'C2_|_A_MEXICO_1714_2015'
+	'C2_|_A_TEXAS_83_2012'
+	'C2_|_A_WASHINGTON_17_2012'
+	'C3_C2_|_A_MEMPHIS_28_2008'
+	'M1_C1_|_A_MICHIGAN_04_2010'
+	'M1_C1_|_A_VERMONT_02_2009'
+	'M1_C1_|_A_VIRGINIA_04_2007'
+	'M1_C2_|_A_ALASKA_28_2014'
+	'M1_S2_|_A_MICHIGAN_08_2014'
+	'MX_C2_|_A_KENTUCKY_08_2014'
+	'NC2E3_|_A_PENNSYLVANIA_09_2012'
+	'ORIGINAL_|_A_ALASKA_36_2015'
+	'ORIGINAL_|_A_CALIFORNIA_93_2015'
+	'ORIGINAL_|_A_COLORADO_22_2007'
+	'ORIGINAL_|_A_FLORIDA_25_2014'
+	'ORIGINAL_|_A_FLORIDA_58_2015'
+	'ORIGINAL_|_A_HAWAII_71_2015'
+	'ORIGINAL_|_A_ILLINOIS_UR06_0402_2007'
+	'ORIGINAL_|_A_NETHERLANDS_772_2014'
+	'ORIGINAL_|_A_NEW_JERSEY_27_2014'
+	'ORIGINAL_|_A_NEW_JERSEY_51_2015'
+	'P0_|_A_BOSTON_DOA11_2011'
+	'P0_|_A_BOSTON_YGA_00002_2012'
+	'P0_|_A_BOSTON_YGA_00064_2013'
+	'P0_|_A_BOSTON_YGA_01153_2013'
+	'P0_|_A_CALIFORNIA_VRDL185_2009'
+	'P0_|_A_CALIFORNIA_VRDL266_2009'
+	'P0_|_A_HOUSTON_JMM_144_2013'
+	'P0_|_A_MANAGUA_5744_03_2010'
+	'P0_|_A_NEW_YORK_1129_2008'
+	'PMK1_|_A_COLORADO_4250_2014'
+	'PMK1_|_A_DELWARE_4741_2015'
+	'PMK1_|_A_FLORIDA_4034_2014'
+	'PMK1_|_A_GEORGIA_4625_2014'
+	'PMK1_|_A_MASSACHUSETTS_4431_2015'
+	'PMK1_|_A_MISSISSIPPI_4535_2015'
+	'PMK1_|_A_NEW_YORK_3438_2013'
+	'PMK1_|_A_TEXAS_4717_2015'
+	'R1_C1_|_A_NEW_HAMPSHIRE_10_2011'
+	'R1_C2_|_A_RHODE_ISLAND_06_2011'
+	'RHMK_1_|_A_NEW_YORK_395_2005'
+	'S1_|_A_FLORIDA_82_2015'
+	'S1_|_A_TENNESSEE_20_2015'
+	'S1_|_A_VIRGINIA_16_2014'
+	'S1_|_A_WASHINGTON_46_2014'
+	'S1_|_A_WYOMING_19_2014'
+	'S2_|_A_ALASKA_248_2015'
+	'S2_|_A_PUERTO_RICO_46_2009'
+	'S3_|_A_DELAWARE_10_2015'
+	'S3_|_A_FLORIDA_23_2015'
+	'S3_|_A_HAWAII_24_2015'
+	'S3_|_A_ILLINOIS_12_2014'
+	'S3_|_A_RHODE_ISLAND_19_2015'
+	'X1_S1_|_A_ALBERTA_RV3240_2014'
+	'_|_A_BOSTON_14_2008'
+	'_|_A_BOSTON_DOA2_120_2012'
+	'_|_A_BOSTON_DOA2_131_2012'
+	'_|_A_BOSTON_DOA2_135_2012'
+	'_|_A_FLORIDA_UR07_0150_2008'
+	'_|_A_KENTUCKY_UR07_0038_2008'
+	'_|_A_MANAGUA_5664_02_2010'
+	'_|_A_NEW_YORK_1043_2006'
+	'_|_A_NEW_YORK_3137_2009'
+	'_|_A_NEW_YORK_3146_2009'
+	'_|_A_NICARAGUA_AGA2_13_2012'
+	'_|_A_ONTARIO_009_2013'
+	'_|_A_WISCONSIN_U131359_2013'
+;
+end;
+
+begin trees;
+	tree tree_1 = [&R] ('RHMK_1_|_A_NEW_YORK_395_2005':0.004931,('C1_C2_|_A_MARTINIQUE_12_2007':0.006342,('_|_A_NEW_YORK_1043_2006':6.17E-4,('ORIGINAL_|_A_ILLINOIS_UR06_0402_2007':6.22E-4,('ORIGINAL_|_A_COLORADO_22_2007':6.22E-4,('P0_|_A_NEW_YORK_1129_2008':0.001246,(('M1_C1_|_A_VIRGINIA_04_2007':0.0,('_|_A_BOSTON_14_2008':6.23E-4,(('C1_|_A_COLORADO_05_2009':0.003745,('M1_C1_|_A_VERMONT_02_2009':0.002495,'P0_|_A_CALIFORNIA_VRDL266_2009':0.002495):0.0):6.23E-4,'_|_A_KENTUCKY_UR07_0038_2008':0.001246):0.0):0.0):0.0,('_|_A_FLORIDA_UR07_0150_2008':6.23E-4,('C3_C2_|_A_MEMPHIS_28_2008':0.0,(('_|_A_NEW_YORK_3137_2009':6.23E-4,'C1_|_A_OREGON_15_2009':6.23E-4):0.003762,(('P0_|_A_CALIFORNIA_VRDL185_2009':6.23E-4,('S2_|_A_PUERTO_RICO_46_2009':0.002505,'_|_A_NEW_YORK_3146_2009':0.00125):6.2E-4):0.001244,((('_|_A_NICARAGUA_AGA2_13_2012':0.009419,'P0_|_A_BOSTON_DOA11_2011':0.001249):6.2E-4,(('C2_|_A_KANSAS_09_2010':0.001872,'C2_|_A_FLORIDA_42_2011':0.001245):0.00125,'C1_|_A_UTAH_08_2010':0.0):0.0):0.00756,(('C1_C1_|_A_HAWAII_31_2009':6.23E-4,(('R1_C2_|_A_RHODE_ISLAND_06_2011':0.004999,('M1_C1_|_A_MICHIGAN_04_2010':0.001246,('_|_A_MANAGUA_5664_02_2010':6.23E-4,'P0_|_A_MANAGUA_5744_03_2010':6.23E-4):6.23E-4):0.0):0.001247,'C1_|_A_PENNSYLVANIA_42_2010':0.004372):0.0):0.0,('C2_|_A_TEXAS_83_2012':0.008812,(('C2_|_A_ALASKA_21_2011':0.001248,'C2_|_A_WASHINGTON_17_2012':0.001247):0.00125,(('R1_C1_|_A_NEW_HAMPSHIRE_10_2011':0.001246,'C2_|_A_KENTUCKY_06_2012':0.00312):0.0,(('NC2E3_|_A_PENNSYLVANIA_09_2012':0.00442,'P0_|_A_BOSTON_YGA_00002_2012':0.004413):5.84E-4,(('_|_A_BOSTON_DOA2_135_2012':0.003748,('S1_|_A_WYOMING_19_2014':0.006252,((((('ORIGINAL_|_A_NETHERLANDS_772_2014':0.002368,(('S1_|_A_WASHINGTON_46_2014':0.003762,('S3_|_A_FLORIDA_23_2015':0.001245,('PMK1_|_A_GEORGIA_4625_2014':0.0,'PMK1_|_A_FLORIDA_4034_2014':6.22E-4):0.0):0.003127):0.002004,'M1_S2_|_A_MICHIGAN_08_2014':0.003617):6.28E-4):7.5E-4,('_|_A_ONTARIO_009_2013':0.0,('P0_|_A_BOSTON_YGA_01153_2013':6.23E-4,'P0_|_A_BOSTON_YGA_00064_2013':6.24E-4):6.23E-4):0.0):6.22E-4,('M1_C2_|_A_ALASKA_28_2014':6.22E-4,('C1_|_A_NEW_YORK_05_2014':6.22E-4,'C2_|_A_MEXICO_1714_2015':0.003116):0.0):0.004376):0.0,('_|_A_WISCONSIN_U131359_2013':0.003745,('P0_|_A_HOUSTON_JMM_144_2013':6.23E-4,'_|_A_BOSTON_DOA2_131_2012':0.001246):6.23E-4):0.0):0.0,'PMK1_|_A_NEW_YORK_3438_2013':6.22E-4):0.0):0.001872):0.0,('_|_A_BOSTON_DOA2_120_2012':0.003132,('MX_C2_|_A_KENTUCKY_08_2014':0.003125,('C2_|_A_CONNECTICUT_08_2014':6.21E-4,(('S3_|_A_HAWAII_24_2015':0.004375,('S3_|_A_DELAWARE_10_2015':6.23E-4,('PMK1_|_A_MISSISSIPPI_4535_2015':0.0,'PMK1_|_A_TEXAS_4717_2015':6.24E-4):0.0):6.23E-4):0.0,('ORIGINAL_|_A_FLORIDA_25_2014':0.0,(('S1_|_A_VIRGINIA_16_2014':0.002499,('PMK1_|_A_MASSACHUSETTS_4431_2015':0.0,('S3_|_A_ILLINOIS_12_2014':0.001247,'ORIGINAL_|_A_NEW_JERSEY_27_2014':0.002497):0.0):6.23E-4):0.0,('S1_|_A_FLORIDA_82_2015':0.001248,('ORIGINAL_|_A_FLORIDA_58_2015':0.003124,(('ORIGINAL_|_A_NEW_JERSEY_51_2015':6.26E-4,'ORIGINAL_|_A_HAWAII_71_2015':6.22E-4):0.004378,('PMK1_|_A_DELWARE_4741_2015':6.23E-4,(('PMK1_|_A_COLORADO_4250_2014':0.001872,('S3_|_A_RHODE_ISLAND_19_2015':0.0,('ORIGINAL_|_A_CALIFORNIA_93_2015':0.001872,'S1_|_A_TENNESSEE_20_2015':0.0):0.002498):6.23E-4):0.0,('X1_S1_|_A_ALBERTA_RV3240_2014':6.24E-4,('S2_|_A_ALASKA_248_2015':0.0,'ORIGINAL_|_A_ALASKA_36_2015':6.23E-4):0.001874):0.0):0.0):0.001247):0.0):0.001247):0.0):0.0):0.0):0.00125):0.003773):0.001259):0.001868):0.001254):0.006274):6.21E-4):0.001891):0.001862):5.77E-4):0.003181):0.001878):0.0):0.0):6.23E-4):0.0):0.004373):0.0):0.004388):5.52E-4):0.007796);
+end;
+
+begin figtree;
+	set appearance.backgroundColorAttribute="Default";
+	set appearance.backgroundColour=#ffffff;
+	set appearance.branchColorAttribute="User selection";
+	set appearance.branchColorGradient=false;
+	set appearance.branchLineWidth=1.0;
+	set appearance.branchMinLineWidth=0.0;
+	set appearance.branchWidthAttribute="Fixed";
+	set appearance.foregroundColour=#000000;
+	set appearance.hilightingGradient=false;
+	set appearance.selectionColour=#2d3680;
+	set branchLabels.colorAttribute="User selection";
+	set branchLabels.displayAttribute="Branch times";
+	set branchLabels.fontName="sansserif";
+	set branchLabels.fontSize=8;
+	set branchLabels.fontStyle=0;
+	set branchLabels.isShown=false;
+	set branchLabels.significantDigits=4;
+	set layout.expansion=0;
+	set layout.layoutType="RECTILINEAR";
+	set layout.zoom=0;
+	set legend.attribute=null;
+	set legend.fontSize=10.0;
+	set legend.isShown=false;
+	set legend.significantDigits=4;
+	set nodeBars.barWidth=4.0;
+	set nodeBars.displayAttribute=null;
+	set nodeBars.isShown=false;
+	set nodeLabels.colorAttribute="User selection";
+	set nodeLabels.displayAttribute="Node ages";
+	set nodeLabels.fontName="sansserif";
+	set nodeLabels.fontSize=8;
+	set nodeLabels.fontStyle=0;
+	set nodeLabels.isShown=false;
+	set nodeLabels.significantDigits=4;
+	set nodeShape.colourAttribute="User selection";
+	set nodeShape.isShown=false;
+	set nodeShape.minSize=10.0;
+	set nodeShape.scaleType=Width;
+	set nodeShape.shapeType=Circle;
+	set nodeShape.size=4.0;
+	set nodeShape.sizeAttribute="Fixed";
+	set polarLayout.alignTipLabels=false;
+	set polarLayout.angularRange=0;
+	set polarLayout.rootAngle=0;
+	set polarLayout.rootLength=100;
+	set polarLayout.showRoot=true;
+	set radialLayout.spread=0.0;
+	set rectilinearLayout.alignTipLabels=false;
+	set rectilinearLayout.curvature=0;
+	set rectilinearLayout.rootLength=100;
+	set scale.offsetAge=0.0;
+	set scale.rootAge=1.0;
+	set scale.scaleFactor=1.0;
+	set scale.scaleRoot=false;
+	set scaleAxis.automaticScale=true;
+	set scaleAxis.fontSize=8.0;
+	set scaleAxis.isShown=false;
+	set scaleAxis.lineWidth=1.0;
+	set scaleAxis.majorTicks=1.0;
+	set scaleAxis.origin=0.0;
+	set scaleAxis.reverseAxis=false;
+	set scaleAxis.showGrid=true;
+	set scaleBar.automaticScale=true;
+	set scaleBar.fontSize=10.0;
+	set scaleBar.isShown=true;
+	set scaleBar.lineWidth=1.0;
+	set scaleBar.scaleRange=0.0;
+	set tipLabels.colorAttribute="User selection";
+	set tipLabels.displayAttribute="Names";
+	set tipLabels.fontName="sansserif";
+	set tipLabels.fontSize=8;
+	set tipLabels.fontStyle=0;
+	set tipLabels.isShown=true;
+	set tipLabels.significantDigits=4;
+	set trees.order=false;
+	set trees.orderType="increasing";
+	set trees.rooting=false;
+	set trees.rootingType="User Selection";
+	set trees.transform=false;
+	set trees.transformType="cladogram";
+end;
+

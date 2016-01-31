@@ -1,0 +1,10 @@
+file	passage
+complete_cell_all_20052015.fasta complete_cell_all_20052015.fasta 3041
+complete_egg_all_20052015.fasta 79
+complete_monkey_all_20052015.fasta 917
+complete_nonsiat_all_20052015.fasta 1755
+complete_other_all_20052015.fasta 1133
+complete_pooled_all_20052015.fasta 6873
+complete_siat_all_20052015.fasta 1046
+complete_unpassaged_all_20052015.fasta 1703
+complete_unpassagedsiat_all_20052015.fasta 2749

@@ -1,0 +1,61 @@
+"""
+This script calculates distances in 3D space between all alpha carbons amino acids in a pdb structure.  
+Outputs distances.dat, where each line is distances from one amino acid to all other amino acids in the structure
+
+Written by AGM
+"""
+
+import sys
+import numpy as np
+from Bio.PDB import *
+
+#Calculates distances between amino acids
+def calc_distances_aas(model):
+    count = 1
+    sites = []
+    for a in model.get_residues():
+        if a.get_resname() == 'SIA':
+            continue
+        
+        distances = []
+        for b in model.get_residues():
+            if b.get_resname() != 'SIA':
+                distance = b['CA'] - a['CA']
+                distances.append(distance)
+        sites.append(distances)
+        print(count)
+        count += 1
+
+    out_file = open('distances.dat', 'w')
+    for a in sites:
+        for b in a:
+          if b == a[-1]:
+                out_file.write(str(b))
+          else:
+                out_file.write(str(b) + ',')
+        out_file.write('\n')
+    out_file.close()
+                
+#Calculates distances from all amino acids to the sialic acid binding site
+def calc_distances_sia():
+
+    location = np.zeros(3)
+
+    for a in model.get_residues():
+        if a.get_resname() == "SIA":
+            for a1 in a:
+                location += a1.get_coord()
+              
+    for a in model.get_residues():
+        if a.get_resname() == "SIA":
+            for b in model.get_residues():
+                if b.get_resname() != 'SIA':
+                    distances.write(str(np.sqrt(sum((location - b['CA'].get_coord())**2))) + '\n')
+                
+def main():
+    parser = PDBParser()
+    structurename = sys.argv[1]
+    structure = parser.get_structure('temp', structurename)
+    calc_distances_aas(structure[0])
+    
+main()
