@@ -24,7 +24,7 @@ residue_max_acc = {'A': 129.0, 'R': 274.0, 'N': 195.0, 'D': 193.0, \
                    'C': 167.0, 'Q': 225.0, 'E': 223.0, 'G': 104.0, \
                    'H': 224.0, 'I': 197.0, 'L': 201.0, 'K': 236.0, \
                    'M': 224.0, 'F': 240.0, 'P': 159.0, 'S': 155.0, \
-                   'T': 172.0, 'W': 285.0, 'Y': 263.0, 'V': 174.0}
+                   'T': 172.0, 'W': 285.0, 'Y': 263.0, 'V': 174.0, 'a':167.0, 'b':167.0, 'c':167.0, 'd':167.0, 'e':167.0, 'f':167.0}
 #This calculates the RSA values for a PDB using DSSP. It returns a list of the Amino Acids and a list of their RSA values. 
 def get_values(pdb_path,output_dssp):
     processString = 'mkdssp' + ' -i ' + pdb_path + ' -o ' + output_dssp
