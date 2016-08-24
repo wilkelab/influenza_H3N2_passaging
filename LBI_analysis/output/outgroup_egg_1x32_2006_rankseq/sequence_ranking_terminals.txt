@@ -1,0 +1,2 @@
+#name	rank	LBI
+SPFCK2E2_|_A_WYOMING_02_2006	1	0

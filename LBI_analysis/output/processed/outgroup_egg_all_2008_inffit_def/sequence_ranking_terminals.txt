@@ -1,0 +1,2 @@
+#name	rank	mean	standard dev
+E5_|_A_MISSOURI_05_2008	1	7.72546574419e-05	0.999839824433

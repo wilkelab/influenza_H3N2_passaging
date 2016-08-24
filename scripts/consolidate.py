@@ -50,9 +50,9 @@ def join_columns():
         else:
 		print textfile + " does not exist!"
     #Add on the table from the S1 dataset
-    holder=holder.join(numtable)
+    final=numtable.join(holder)
     #This csv will be the input data for statistics and figures
-    holder.to_csv("slac_output.csv", index=False)
+    final.to_csv("slac_output.csv", index=False)
 
 join_columns()
 

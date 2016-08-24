@@ -1,0 +1,2 @@
+#name	rank	mean	variance
+1	1	1.45134172491	0.622646077843

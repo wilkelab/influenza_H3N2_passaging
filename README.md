@@ -27,7 +27,8 @@ Austin, Austin, TX 78712
 
 Repository contains all output of the analysis used in "Serial passaging causes extensive positive selection in seasonal influenza A hemagglutinin"
 
-*All FASTA files have been removed per the GISAID user agreement*
+### *All FASTA files have been removed per the GISAID user agreement*
+Sequence IDs used in each analysis are available in /trees
 
 ####README contain instructions for fully rerunning this analysis, notes for analysis, and a table of contents for this repository. 
 
@@ -40,6 +41,7 @@ Requirements:
 *  HyPhy (Here, 2.26) http://hyphy.org/
 *  R 3.2.1 or above  
 *  FigTree or other tree visualization software
+*  ete3 
 
 First, remove all .tree files in /trees/, .txt files in input_fasta_summary, and .dat files in /rate_measurement_data/, and .corr .raw .png and .csv files in data_analysis
 - - -
@@ -135,8 +137,10 @@ unpassagedmatched2014
 * This script calls sort_conditions.sh for each condition, and sorts/randomly samples FASTAs according to parameters stored in /condition_parameters/
 * Requires script randomdraw.py 
 * For each FASTA in a condition's experimental set, this step uses FastTree to reconstruct  a phylogenetic tree
+* There is a choice whether to manually reroot trees (manual) or trim down an existing full tree (auto)
+* Modify command in step3_sort_conditions.bash to ex. bash bash sort_conditions.sh unpassagedmatched2014 samp manual 
 
-### 7. Manually format trees
+###  7 (Optional): Manually format trees
 * For each tree  in  **/trees**/allpassages_trees/, **trees**/matched_allpassages_trees, **/trees**/matched_nonsiatunpassaged_trees, and **trees**/matched_siatnonsiat_trees:
 * Open tree in FigTree (or other tree visualization software)
 * Select the outgroup branch of sequences from 1968-1977, and click Reroot (ctrl + r)
@@ -145,6 +149,10 @@ unpassagedmatched2014
 * Open new FigTree window (ctrl + n)
 * Paste in non-outgroup branch (ctrl + v)
 * For an original tree named outgroup_X_N_20052014.tree, save the new non-outgroup containing tree in the same folder with the prefix samp_ or complete_ depending on if it derives from a random sample or not. Only trees from the allpassages condition should be named complete_.  Trees from matched conditions should be named samp_. Ex.outgroup_samp_siat_229a_2014.tree (unrooted tree with outgroup)->  samp_siat_229a_2014.tree (rooted tree without outgroup)
+
+
+
+
 
 ### 8. Reconstruct dN/dS
 In **/run_analysis** run: $ bash step4_analyze_conditions.bash 
@@ -314,3 +322,95 @@ This folder contains scripts and datafiles for generating structural measurement
   *  2YP7clean.pdb - Modifed structure compatible for structure painting (see above)
   *  structure_map.txt - for aligning sites with structure
   *  distances.dat - Distances from every site in 2YP7clean to every other site
+
+***
+
+## Other analyses
+### LBI (Least Branching Index)
+#### This is an analysis using a method from Neher et al 2014, "Prediction evolution from the shape of genealogical trees" -  https://elifesciences.org/content/3/e03568
+The LBI_analysis directory is built off a clone of https://github.com/rneher/FitnessInference
+Using the scripts rank_sequences.py, and the prediction_src directory
+
+In this analysis, sequences are ranked by their degree of branching in a reconstructeed tree. Top ranked sequences ideally predict the following years ancestral better than a randomly picked sequence.
+
+Conditions of sequences in paper
+  * 50 draws of up to 100 sequences per passage group per year
+  * If 100 sequences are not available, 70% of available sequences are repeatedly drawn
+
+Sequences for this analysiswere generated with :
+  * bash scripts/sort_conditions_LBI.sh sampleSingleyears samp
+  * with parameter script: condition_parameters/parameters_allsequencesSingleyears.sh
+
+To run:
+  * Place target FASTA in fastas/
+  * Create an Outgroup file called "outgroup" and place in LBI_analysis/ basedir
+  * This file should contain one outgroup sequence in FASTA format for the analysis
+  * cat this file onto each analyis FASTA in fastas/ 
+  * ex.  for f in samp_*; do cat outgroup $f > outgroup${f##samp}; done
+  * To run the analysis on files in the fastas:
+  * for f in fastas/outgroup*; do bash run_analysis_passages.sh $f; done
+  * Folders with results are saved in output/
+  * Containing:
+  *   ancestral_sequences.fasta : Internal nodes of ancestral tree. Sequence 1 = root
+  *   reconstructed_tree.nwk : Ancestrally reconstructed tree
+  *   sequence_ranking_terminals : Ranking of terminal sequences according to LBI algorithms. 1 is top rank
+  *  marked_up_tree.pdf : image of reconstructed tree with LBI algorithm ranking coloring
+
+  *  In order to consolidate outputs of LBI analysis:
+  *  For multiple random draws (analysis used in this manuscript) : 
+  *  python get_data_randdraws.py 
+
+organization 
+
+  *  /fastas : Where to put input fastas
+  *  /output : Where output results are sent
+  *  prediction_src : Core scripts from Neher et al. 2015 for calculating LBI
+  *  /processed : output folders not currently being used
+  *  /scripts : Scripts to control analysis
+  *  /scripts/rank_sequences.py : Main control script for LBI from Neher 2014
+  *  /scripts/infer_fitness.py : Make predictions with fitness instead of LBI
+  *  /scripts/get_data_randdraws.py : After analysis is run, this scripts collects output into a table format
+  * Headers of output table:
+  * passage, year, category, trial, stat, num_seq : identifying information of sequence. Stat in this case is always rankseqs
+  * topRankID, topRankSeq, mean	stdev : The top ranked LBI sequence/ID, as well as the mean and standard deviation of LBI scores
+  * ancestral_seq : The ancestral sequence of the condition	
+  * random_seqID, random_seq : A random sequence to compare performance of the top ranked sequence	
+  * hamming_to_next_self, hamming_to_next_unpassaged, hamming_to_next_pooled: hamming distance to following years ancestral_seq from different passage conditions. 
+  * hamming_rand_self, hamming_rand_unpassaged, hamming_rand_pooled: Likewise, but calculated with the random sequence	
+  * ratio_self, ratio_unpassaged, ratio_pooled : The ratio of the hamming distance from LBI choice sequence to the random sequence.
+ 
+
+
+### Serial passaging analysis
+#### This analysis demonstrates that as number of passages in nonSIAT1 MDCK increase, spurious correlation strength increases
+
+  * To run:
+  * bash run_analysis/serial_analysis2.sh
+  * This will select sequences from complete_nonsiat_all_20052015.fasta which are passaged once, twice, or 3-5 times. 
+  * then, bash scripts/start_SLAC.sh singleserial20052015 samp
+  * This using the condition_parameters file /condition_parameters/singleserial20052015.sh
+  * This will pull complete_unpassaged_all_20052015.fasta as the zero passage case, then take a sample size matched draw and start HYPHY SLAC to get dN/dS
+  * Visualiziation included in main scripts stats_and_figs.Rmd
+
+### Trunk dN/dS analysis
+#### In this analysis, trunk sequences are pulled from a reconstructed tree.
+#### dN/dS is calculated for trees constructed from different passage histories in order to determine if passaging signal extends to the trunk of the tree 
+
+  *  Move fastas of conditions to get trunk dN/dS for into trunk_analysis/fastas
+  *  Get reconstructed trees and trunk sequences with:
+  *  bash scripts/get_trunk.sh
+  *  Output is placed in trunk_analysis/output
+  *  Calculate dN/dS (where dS=1) with:
+  *  bash scripts/get_dnds.sh
+  *  Output dN is placed in /rate_measurement_data and added to slac_output.csv
+  *  Analyzed in stats_and_figs.Rmd main analysis script
+
+
+### Random sampling analysis
+#### Take 200 random draws from the pooled condition a null to calculate likelihood of unpassaged correlation
+
+  * bash get_random_tree.sh
+  * bash scripts/start_SLAC.sh randomsamples20052015 samp
+  * This using the condition_parameters file /condition_parameters/randomsamples20052015.sh
+  * Visualiziation and statistics included in main scripts stats_and_figs.Rmd
+

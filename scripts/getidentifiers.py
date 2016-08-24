@@ -18,10 +18,11 @@ import sys
 def rec_list(fasta_file):
     infile = fasta_file
     handle = open(infile, "rU")
+    output = open(outfile, "w")
     rec=[]
     for record in SeqIO.parse(handle, "fasta"):
         rec.append(record.id)
-
+        
     #Nonredundant list
     recset=set(rec)
     for rec in list(recset):

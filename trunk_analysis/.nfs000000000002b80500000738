@@ -1,0 +1,12 @@
+#Input is a fasta file with outgroup added in
+
+
+
+for condition in fastas/outgroup_*
+do
+
+    outfile=${condition%.fasta}
+    outfile=${outfile#clairefastas/}
+    python get_trunk.py --aln $condition --outgroup outgroup  --destdir output/${outfile}_trunkseqs 
+
+done

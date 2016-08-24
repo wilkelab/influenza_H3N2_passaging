@@ -20,7 +20,7 @@ This RMarkdown script generates figures 2, 3,and 4, S1, S2 as well as calculates
 ### Formatting input data
 
 Load required packages
-```{r}
+```{r message=FALSE, warning=FALSE}
 require(cowplot)  #for figure themes
 require(knitr)    #for knitting html
 require(reshape2) #for melt function
@@ -31,7 +31,7 @@ require(tidyr)    #for melt function
 ```
 
 Color scheme
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 blue<-"#0072B2"
 palette <- c("#FF0000", "#0072B2", "#979797","#009E24", "#FFD700", "#E69F00")
@@ -40,11 +40,27 @@ palette <- c("#FF0000", "#0072B2", "#979797","#009E24", "#FFD700", "#E69F00")
 ```
 
 Make labels for tidy data format
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 unpassagedvect <- c("unpassaged")
 unpassagedvect <- rep(unpassagedvect, times=566)
 
+unpassagedsiatvect <- c("unpassagedsiat")  #unused
+unpassagedsiatvect <- rep(unpassagedsiatvect, times=566) #unused
+
+nonsiatsinglevect <- c("nonSIAT1single")
+nonsiatsinglevect <- rep(nonsiatsinglevect, times=566)
+ 
+nonsiatdoublevect <- c("nonSIAT1double")
+nonsiatdoublevect <- rep(nonsiatdoublevect, times=566)
+
+nonsiatmultivect <- c("nonSIAT1multi")
+nonsiatmultivect <- rep(nonsiatmultivect, times=566)
+
+nonsiatserialCvect <- c("nonSIAT1serialC")
+nonsiatserialCvect <- rep(nonsiatserialCvect, times=566)
+
+ 
 eggvect <- c("egg")
 eggvect <- rep(eggvect, times=566)
 
@@ -72,6 +88,9 @@ intvect <- rep(intvect, times=566)
 tipsvect <- c("tips")
 tipsvect <- rep(tipsvect, times=566)
 
+trunkvect <- c("trunk")
+trunkvect <- rep(trunkvect, times=566)
+
 vect79a <- c("79a")
 vect79a <- rep(vect79a, times=566)
 
@@ -90,10 +109,20 @@ vect1703a <- rep(vect1703a, times=566)
 vect917a <- c("917a")
 vect917a <- rep(vect917a, times=566)
 
+vect304a <- c("304a")
+vect304a <- rep(vect304a, times=566)
+
+vect304b <- c("304b")
+vect304b <- rep(vect304b, times=566)
+
+vect304c <- c("304c")
+vect304c <- rep(vect304c, times=566)
 
 vect1046a <- c("1046a")
 vect1046a <- rep(vect1046a, times=566)
 
+vectall <- c("all")
+vectall <- rep(vectall, times=566)
 
 vect20052015 <- c("2005-2015")
 vect20052015 <- rep(vect20052015, times=566)
@@ -105,7 +134,7 @@ vect2014 <- rep(vect2014, times=566)
 ```
 
 Arrange dN/dS data from slac_output.csv into tidy dataframe
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 
 p <- read.table("slac_output.csv", sep=",", header=TRUE, stringsAsFactors=FALSE, na.strings=c("","NA"))
@@ -113,6 +142,30 @@ p <- read.table("slac_output.csv", sep=",", header=TRUE, stringsAsFactors=FALSE,
 #Create one tidy dataframe from dN/dS output from SLAC ananlysis
 dndsData <- rbind(
 
+              cbind(p$samp_nonsiatsingle_304a_20052015_full, nonsiatsinglevect, fullvect, vect304a, vect20052015),
+              cbind(p$samp_nonsiatsingle_304a_20052015_internal, nonsiatsinglevect, intvect, vect304a, vect20052015),
+              cbind(p$samp_nonsiatsingle_304a_20052015_tips, nonsiatsinglevect, tipsvect, vect304a, vect20052015),
+
+              cbind(p$samp_nonsiatdouble_304a_20052015_full, nonsiatdoublevect, fullvect, vect304a, vect20052015),
+              cbind(p$samp_nonsiatdouble_304a_20052015_internal, nonsiatdoublevect, intvect, vect304a, vect20052015),
+              cbind(p$samp_nonsiatdouble_304a_20052015_tips, nonsiatdoublevect, tipsvect, vect304a, vect20052015),        
+
+              cbind(p$samp_nonsiatmulti_304a_20052015_full, nonsiatmultivect, fullvect, vect304a, vect20052015),
+              cbind(p$samp_nonsiatmulti_304a_20052015_internal, nonsiatmultivect, intvect, vect304a, vect20052015),
+              cbind(p$samp_nonsiatmulti_304a_20052015_tips, nonsiatmultivect, tipsvect, vect304a, vect20052015),                
+              cbind(p$samp_unpassaged_304a_20052015_full, unpassagedvect, fullvect, vect304a, vect20052015),
+              cbind(p$samp_unpassaged_304a_20052015_internal, unpassagedvect, intvect, vect304a, vect20052015),
+              cbind(p$samp_unpassaged_304a_20052015_tips, unpassagedvect, tipsvect, vect304a, vect20052015),                
+
+              
+              cbind(p$samp_unpassaged_304b_20052015_full, unpassagedvect, fullvect, vect304b, vect20052015),
+              cbind(p$samp_unpassaged_304b_20052015_internal, unpassagedvect, intvect, vect304b, vect20052015),
+              cbind(p$samp_unpassaged_304b_20052015_tips, unpassagedvect, tipsvect, vect304b, vect20052015),                
+              cbind(p$samp_unpassaged_304c_20052015_full, unpassagedvect, fullvect, vect304c, vect20052015),
+              cbind(p$samp_unpassaged_304c_20052015_internal, unpassagedvect, intvect, vect304c, vect20052015),
+              cbind(p$samp_unpassaged_304c_20052015_tips, unpassagedvect, tipsvect, vect304c, vect20052015),             
+              
+                                            
               cbind(p$samp_nonsiat_1703a_20052015_full, nonsiatvect, fullvect, vect1703a, vect20052015),
               cbind(p$samp_nonsiat_1703a_20052015_internal, nonsiatvect, intvect, vect1703a, vect20052015),
               cbind(p$samp_nonsiat_1703a_20052015_tips, nonsiatvect, tipsvect, vect1703a, vect20052015),
@@ -232,8 +285,20 @@ dndsData <- rbind(
               
               cbind(p$samp_nonsiat_249a_2014_full, nonsiatvect, fullvect, vect249a, vect2014),
               cbind(p$samp_nonsiat_249a_2014_internal, nonsiatvect, intvect, vect249a, vect2014),
-              cbind(p$samp_nonsiat_249a_2014_tips, nonsiatvect, tipsvect, vect249a, vect2014)
+              cbind(p$samp_nonsiat_249a_2014_tips, nonsiatvect, tipsvect, vect249a, vect2014),
               
+              cbind(p$complete_unpassaged_all_20052015_trunk, unpassagedvect, trunkvect, vectall, vect20052015),
+              cbind(p$complete_siat_all_20052015_trunk, siatvect, trunkvect, vectall, vect20052015),
+              cbind(p$complete_nonsiat_all_20052015_trunk, nonsiatvect, trunkvect, vectall, vect20052015),
+              cbind(p$complete_monkey_all_20052015_trunk, monkeyvect, trunkvect, vectall, vect20052015),
+              cbind(p$complete_pooled_all_20052015_trunk, pooledvect, trunkvect, vectall, vect20052015),
+              cbind(p$complete_cell_all_20052015_trunk, cellvect, trunkvect, vectall, vect20052015),
+              
+              cbind(p$complete_unpassaged_all_20052015_full, unpassagedvect, fullvect, vectall, vect20052015),
+              cbind(p$complete_siat_all_20052015_full, siatvect, fullvect, vectall, vect20052015),
+              cbind(p$complete_nonsiat_all_20052015_full, nonsiatvect, fullvect, vectall, vect20052015),
+              cbind(p$complete_pooled_all_20052015_full, pooledvect, fullvect, vectall, vect20052015),
+              cbind(p$complete_cell_all_20052015_full, cellvect, fullvect, vectall, vect20052015)
                    )
 
 dndsData <- data.frame(dndsData) 
@@ -325,14 +390,154 @@ step_heatmap <- function(rtable, ptable) {
 
 
 ```
+***
+***
 
 ### Conditions
 These are the conditions:
 
+***
+#### Unpassaged, various sample sizes 2005-2015 Supplemental unpassaged consistency figure
+##### This is looking at correlations of within unpassaged samples of different sizes
+```{r message=FALSE, warning=FALSE}
+
+UnpassagedData <- p[, c(
+
+      
+      "Gene", 
+      "Protein", 
+      "pdb.2yp7", 
+      "RSA.Multimer",
+      "distance.to.224.all.2yp7",
+      "samp_unpassaged_79a_20052015_full", 
+      "samp_unpassaged_79b_20052015_internal", 
+      "samp_unpassaged_79c_20052015_tips", 
+
+      "samp_unpassaged_304a_20052015_full", 
+      "samp_unpassaged_304b_20052015_internal", 
+      "samp_unpassaged_304c_20052015_tips"
+      
+      )]
+
+write.csv(UnpassagedData, file = "UnpassagedData.csv", row.names=FALSE)
+
+```
+
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
+
+#Organize data for structure color maps
+
+selectrangeUnpass=c("79a", "79b", "79c", "304a", "304b", "304c")
+
+
+fullData_samp_Unpass<-filter(dndsData, Analysis=="full", selection %in% selectrangeUnpass, timeperiod=="2005-2015", passage=="unpassaged")
+
+fullData_samp_Unpass$dNdS <- as.numeric(as.character(fullData_samp_Unpass$dNdS))
+
+ggplot(fullData_samp_Unpass, aes(x=passage, y=dNdS)) +
+   geom_jitter()+
+   facet_wrap(~selection)
+```
+
+##### Correlation (except 1) insignificant
+```{r message=FALSE, warning=FALSE}
+
+unpassfull_79a <- filter(fullData_samp_Unpass, selection=="79a", Analysis=="full")$dNdS
+unpassfull_79b <- filter(fullData_samp_Unpass, selection=="79b", Analysis=="full")$dNdS
+unpassfull_79c <- filter(fullData_samp_Unpass, selection=="79c", Analysis=="full")$dNdS
+
+unpassfull_304a <- filter(fullData_samp_Unpass, selection=="304a", Analysis=="full")$dNdS
+unpassfull_304b <- filter(fullData_samp_Unpass, selection=="304b", Analysis=="full")$dNdS
+unpassfull_304c <- filter(fullData_samp_Unpass, selection=="304c", Analysis=="full")$dNdS
+
+t.test(unpassfull_79a, unpassfull_79b, paired=TRUE)
+t.test(unpassfull_79a, unpassfull_79c, paired=TRUE)
+t.test(unpassfull_79b, unpassfull_79c, paired=TRUE)
+
+
+t.test(unpassfull_304a, unpassfull_304b, paired=TRUE)
+t.test(unpassfull_304a, unpassfull_304c, paired=TRUE)
+t.test(unpassfull_304b, unpassfull_304c, paired=TRUE)
+
+
+```
+
+***
+#### All sequences, unpassaged, monkey, cell, pooled, siat, unpassagedsiat, 2005-2015 Supplemental trunk figure
+##### This is a figure to show mutations in passaged groups that extend to the trunk
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE, width = 12, height=6}
+trunkData_all <- dndsData %>% filter(Analysis=="trunk")
+
+trunkData_all$dNdS <- as.numeric(as.character(trunkData_all$dNdS))
+
+vectlabels <- as.character(seq(1,566))
+vectlabels <- rep(vectlabels, times=6)
+
+trunkData_all_label <- cbind(trunkData_all, vectlabels)
+
+trunkData_all_label <- droplevels(trunkData_all_label)
+
+trunkData_all_label$vectlabels <- factor(trunkData_all_label$vectlabels, levels=trunkData_all_label$vectlabels)
+levels(trunkData_all_label$passage) <- c("cell", "monkey",  "non-SIAT1","pooled","SIAT1","unpassaged")
+trunkData_all_label$passage <- factor(trunkData_all_label$passage, levels=c( "cell", "pooled","non-SIAT1","SIAT1",  "monkey","unpassaged" ))
+
+
+trunkData_all_label_filt <- trunkData_all_label %>% filter(dNdS > 0)
+
+
+#ggplot(trunkData_all_label_filt, aes(x=vectlabels, fill=passage)) +
+#   geom_dotplot(stackgroups = TRUE)# +
+   #facet_wrap(~passage, ncol=1)
+
+
+#add marker for entries with dN/dS >= 1
+pos_select=rep("", nrow(trunkData_all_label_filt))
+pos_select[trunkData_all_label_filt$dNdS>=1] <- "#"
+
+trunkData_all_label_filt <- cbind (trunkData_all_label_filt, pos_select)
+
+trunk_dn_all <- ggplot(trunkData_all_label_filt, aes(x=vectlabels, y=passage)) +
+  geom_tile(aes(fill=dNdS)) +
+  geom_text(aes(label=pos_select), size = 6) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  scale_fill_gradientn("dN/dS", colours=c("white",blue), limits=c(0.00,2.00), na.value = "white")  +
+  scale_y_discrete(breaks=c("unpassaged", "SIAT1", "pooled", "non-SIAT1", "monkey", "cell"),
+                      labels=c("unpassaged", "SIAT1", "pooled", "non-SIAT1", "monkey", "cell"))+
+  xlab("Amino acid positions with trunk mutation")+ 
+  ylab("Passage")+
+  labs("dN/dS")
+
+
+unpass_pos <- trunkData_all_label_filt %>% filter(passage=="unpassaged")
+trunkData_all_label_spur <- trunkData_all_label_filt %>% filter(!vectlabels %in% unpass_pos$vectlabels) #Not in
+
+trunk_dn_unpass <- ggplot(trunkData_all_label_spur, aes(x=vectlabels, y=passage)) +
+  geom_tile(aes(fill=dNdS)) +
+  geom_text(aes(label=pos_select), size = 6) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+    scale_fill_gradientn("dN/dS", colours=c("white",blue), limits=c(0.00,2.00), na.value = "white") +
+  scale_y_discrete(breaks=c("SIAT1", "pooled", "non-SIAT1", "cell"),
+                      labels=c("SIAT1", "pooled", "non-SIAT1", "cell"))+
+  xlab("Amino acid positions with trunk mutation not observed in unpassaged") + 
+  ylab("Passage")
+
+  
+
+trunk_fig <- plot_grid(trunk_dn_all, trunk_dn_unpass, ncol=1, align="v")
+
+trunk_fig
+
+```
+
+
+***
 #### 917 sequences, unpassaged, monkey, cell, pooled, 2005-2015 (Figure 2, 3) 
+##### This is an analysis to show differences in dN/dS between different passage groups. 
+##### Sample size matched to # of monkey sequences
+
 
 Make supplementary table (917 seqs, unpassaged, monkey, cell, pooled, 2005-2015)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 Fig2and3Data <- p[, c(
 
@@ -365,8 +570,7 @@ write.csv(Fig2and3Data, file = "Figure2and3Data.csv", row.names=FALSE)
 
 Filter for dN/dS data (917 seqs, unpassaged, monkey, cell, pooled, 2005-2015)
 
-
-```{r}
+```{r message=FALSE, warning=FALSE}
 #Organize data for structure color maps
 
 fullData_samp_917<-filter(dndsData, Analysis=="full", selection=="917a", timeperiod=="2005-2015")
@@ -402,7 +606,7 @@ tipsdNs_samp_917 <- tipsdf_samp_917[c("unpassaged", "cell",  "monkey", "pooled")
 ```
 
 Correlating sitewise dN/dS between passage types, using 917 available sequences 2005-2015. Formatting datatables for heatmap with significance (917 seqs, unpassaged, monkey, cell, pooled, 2005-2015)
-```{r}
+```{r message=FALSE, warning=FALSE}
 fullcorr_samp_917.rs  = get_corr_and_signif(fulldNs_samp_917)[1]
 fullcorr_samp_917.ps  = get_corr_and_signif(fulldNs_samp_917)[2]  
 fullcorr_samp_917 <- step_heatmap(fullcorr_samp_917.rs, fullcorr_samp_917.ps) 
@@ -418,7 +622,7 @@ tipscorr_samp_917 <- step_heatmap(tipscorr_samp_917.rs, tipscorr_samp_917.ps)
 ```
 
 Plot heatmaps of correlations between sitewise dN/dS between difference passages (917 seqs, unpassaged, monkey, cell, pooled, 2005-2015) => fullsheat_samp_917, intheat_samp_917, tipsheat_samp_917
-```{r}
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
 fullheat_samp_917 <-ggplot(fullcorr_samp_917, aes(x=Var1,    y=Var2, fill=r)) + 
     geom_tile() + geom_text(aes(label=round(r,2)))+ 
     geom_text(aes(label=sig), size = 8) +
@@ -455,12 +659,12 @@ tipsheat_samp_917 <- ggdraw(switch_axis_position(tipsheat_samp_917, axis = 'x'))
 prow<-plot_grid(fullheat_samp_917,intheat_samp_917,tipsheat_samp_917, labels = c("A", "B", "C"), ncol = 3)  #grid of three heatmaps
 
 corrheatmaps_samp_917 <- plot_grid( prow, legend, rel_widths = c(3, .3)) #add in the legend to the figure
-
+corrheatmaps_samp_917 
 ```
 
 
 Correlations with 1/distance to site 224. R squared values are plotted. (917 seqs, unpassaged, monkey, cell, pooled, 2005-2015) => distbar_samp_917
-```{r}
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
 forDist_samp_917<-data.frame(cbind(InvDistanceData, fulldf_samp_917, intdf_samp_917, tipsdf_samp_917)) 
 forDist_samp_917<-forDist_samp_917[!is.na(forDist_samp_917$InvDistanceData), ] #Only sites in structure have  inverse distance value
 forDist_samp_917 <- data.frame(sapply(forDist_samp_917[], as.numeric))
@@ -506,7 +710,7 @@ print(distbar_samp_917)
 ```
 
 Correlations with RSA (917 seqs, unpassaged, monkey, cell, pooled, 2005-2015)  => rsabar_samp_917
-```{r}
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
 
 forRSA_samp_917<-data.frame(cbind(RSAData, fulldf_samp_917, intdf_samp_917, tipsdf_samp_917)) 
 forRSA_samp_917<-forRSA_samp_917[!is.na(forRSA_samp_917$RSAData), ]#Limit to sites with RSA value
@@ -549,12 +753,12 @@ rsabar_samp_917<-ggplot(aes(x = Passage, y = r.square), data = dfRSA_samp_917) +
   background_grid(major = 'y', minor = "none") + # add thin horizontal lines
   panel_border() # and a border around each panel 
 
-
+rsabar_samp_917
 ```
 
 
 dN/dS jitter plots (917 seqs, unpassaged, monkey, cell, pooled, 2005-2015) => dot_samp_917
-```{r fig.width=20, fig.height=6}
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
 
 #Every site needs a lable
 #labelsvect <- c(rep("unpassaged", times=566), rep("cell", times=566), rep("monkey", times=566), rep("pooled",times=566))
@@ -623,14 +827,15 @@ dot_samp_917 <- ggplot(data = allmelt_samp_917, aes(x=Var2, y=value)) +
             panel_border()
 
 
-#print(dot_samp_917)
+print(dot_samp_917)
 
 ```
 
+***
 #### 1046 sequences, unpassaged, nonSIAT1, SIAT1 2005-2015 (Figure 4)
-
+##### This analysis show differences between unpassaged, nonSIAT1, and SIAT1 
 Make supplementary table (1046 sequences, unpassaged, nonSIAT1, SIAT1 2005-2015 (Figure 4))
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 Fig4Data <- p[, c(
 
@@ -663,7 +868,7 @@ write.csv(Fig4Data, file = "Figure4Data.csv", row.names=FALSE)
 ```
 
 Filter for dN/dS data (1046  sequences, unpassaged, SIAT1, nonSIAT, 2005-2015)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 fulldata_1046<-filter(dndsData, Analysis=="full", selection=="1046a", timeperiod=="2005-2015")
 temp_samp_1046<-split(as.numeric(as.character(fulldata_1046$dNdS)), fulldata_1046$passage) #pull each sitewise dN/dS list for each passage type into its own vector
@@ -689,14 +894,14 @@ tipsdf_samp_1046[] <- lapply(tipsdf_samp_1046, as.numeric)
 ```
 
 Select and order columns (1046  sequences, unpassaged, SIAT1, nonSIAT, 2005-2015)
-```{r, eval=FALSE}
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
 fulldf_samp_1046 <- fulldf_samp_1046[c("unpassaged", "10461", "non1046")]
 intdf_samp_1046 <-  intdf_samp_1046[c("unpassaged", "10461", "non1046")]
 tipsdf_samp_1046 <- tipsdf_samp_1046[c("unpassaged", "10461", "non1046")]
 ```
 
 Distance to site 224 (1046  sequences, unpassaged, SIAT1, nonSIAT, 2005-2015)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 forDist_samp_1046<-data.frame(cbind(InvDistanceData, fulldf_samp_1046, intdf_samp_1046, tipsdf_samp_1046))
 
@@ -742,7 +947,7 @@ distbar_samp_1046<-ggplot(aes(x = Passage, y = r.square), data = dfDist_samp_104
 
 ```
 RSA (1046  sequences, unpassaged, SIAT1, nonSIAT, 2005-2015) 
-```{r}
+```{r message=FALSE, warning=FALSE}
 forRSA_samp_1046<-data.frame(cbind(RSAData, fulldf_samp_1046, intdf_samp_1046, tipsdf_samp_1046))
 forRSA_samp_1046<-forRSA_samp_1046[!is.na(forRSA_samp_1046$RSAData), ] #only calculate correlations for sites w/ RSA value
 forRSA_samp_1046 <- data.frame(sapply(forRSA_samp_1046[], as.numeric))
@@ -787,7 +992,7 @@ rsabar_samp_1046<-ggplot(aes(x = Passage, y = r.square), data = dfRSA_samp_1046)
 ```
 
 dN/dS jitter plots (1046  sequences, unpassaged, SIAT1, nonSIAT, 2005-2015)
-```{r fig.width=20, fig.height=6}
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
 
 
 labelsvect <- c(rep("unpassaged", times=566), rep("siat", times=566), rep("nonSIAT", times=566))
@@ -850,10 +1055,246 @@ print(dot_samp_1046)
 
 ```
 
+***
+#### 304 sequences, nonsiatserial, nonSIAT1, SIAT1 2005-2015 (Figure 4)
+#### This analysis shows increasing correlation with distance-to-224 with increasing numbers of passages:w
+
+Make supplementary table (304 sequences, nonsiatserial, nonSIAT1, SIAT1 2005-2015 (Figure 4))
+```{r message=FALSE, warning=FALSE}
+
+singleserialData <- p[, c(
+
+     
+      "Gene", 
+      "Protein", 
+      "pdb.2yp7",
+      "RSA.Multimer",
+      "distance.to.224.all.2yp7",
+      "samp_nonsiatsingle_304a_20052015_full", 
+      "samp_nonsiatdouble_304a_20052015_full",
+      "samp_nonsiatmulti_304a_20052015_full",
+      "samp_unpassaged_304a_20052015_full",
+
+      "samp_nonsiatsingle_304a_20052015_internal", 
+      "samp_nonsiatdouble_304a_20052015_internal",
+      "samp_nonsiatmulti_304a_20052015_internal",
+      "samp_unpassaged_304a_20052015_internal",
+      
+      "samp_nonsiatsingle_304a_20052015_tips", 
+      "samp_nonsiatdouble_304a_20052015_tips",
+      "samp_nonsiatmulti_304a_20052015_tips",
+      "samp_unpassaged_304a_20052015_tips"
+      
+      )]
+
+write.csv(singleserialData, file = "singleserialData.csv", row.names=FALSE)
+
+
+```
+
+Filter for dN/dS data (304  sequences, nonsiatserial, SIAT1, nonSIAT, 2005-2015)
+```{r message=FALSE, warning=FALSE}
+
+fulldata_304<-filter(dndsData, Analysis=="full", selection=="304a", timeperiod=="2005-2015")
+temp_samp_304<-split(as.numeric(as.character(fulldata_304$dNdS)), fulldata_304$passage) #pull each sitewise dN/dS list for each
+
+
+fulldNs_samp_304 <- cbind(temp_samp_304[["unpassaged"]],temp_samp_304[["nonSIAT1single"]],temp_samp_304[["nonSIAT1double"]], temp_samp_304[["nonSIAT1multi"]])  #join vectors of sitewise dN/dS into matrix format for cor functions (columns = passage history, rows = sites)
+colnames(fulldNs_samp_304) <- c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")
+fulldf_samp_304 <- data.frame(fulldNs_samp_304)
+fulldf_samp_304[] <- lapply(fulldf_samp_304, as.numeric)
+
+intSNSdata<-filter(dndsData, Analysis=="int", selection =="304a", timeperiod=="2005-2015")
+temp_samp_304<-split(as.numeric(as.character(intSNSdata$dNdS)), intSNSdata$passage)
+intdNs_samp_304 <- cbind(temp_samp_304[["unpassaged"]],temp_samp_304[["nonSIAT1single"]],temp_samp_304[["nonSIAT1double"]], temp_samp_304[["nonSIAT1multi"]]) 
+colnames(intdNs_samp_304) <- c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")
+intdf_samp_304 <- data.frame(intdNs_samp_304)
+intdf_samp_304[] <- lapply(intdf_samp_304, as.numeric)
+
+
+tipsSNSdata<-filter(dndsData, Analysis=="tips", selection =="304a", timeperiod=="2005-2015")
+temp_samp_304<-split(as.numeric(as.character(tipsSNSdata$dNdS)), tipsSNSdata$passage)
+tipsdNs_samp_304 <- cbind(temp_samp_304[["unpassaged"]],temp_samp_304[["nonSIAT1single"]],temp_samp_304[["nonSIAT1double"]], temp_samp_304[["nonSIAT1multi"]]) 
+colnames(tipsdNs_samp_304) <- c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")
+tipsdf_samp_304 <- data.frame(tipsdNs_samp_304)
+tipsdf_samp_304[] <- lapply(tipsdf_samp_304, as.numeric)
+```
+
+Select and order columns (304  sequences, unpassaged, nonSIAT1single, nonSIAT1double, nonSIAT1multi, 2005-2015)
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+fulldf_samp_304 <- fulldf_samp_304[c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")]
+intdf_samp_304 <-  intdf_samp_304[c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")]
+tipsdf_samp_304 <- tipsdf_samp_304[c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")]
+```
+
+Distance to site 224 (304  sequences, nonsiatserial, nonsiatsingle, 2005-2015)
+```{r message=FALSE, warning=FALSE}
+
+forDist_samp_304<-data.frame(cbind(InvDistanceData, fulldf_samp_304, intdf_samp_304, tipsdf_samp_304))
+
+forDist_samp_304<-forDist_samp_304[!is.na(forDist_samp_304$InvDistanceData), ] #Only sites in structure have Inv. Distance Data
+
+forDist_samp_304 <- data.frame(sapply(forDist_samp_304[], as.numeric))
+
+rsDist_samp_304 = NULL  #empty to hold r.squared values
+for (i in 2:ncol(forDist_samp_304)){
+    rsDist_samp_304  <- rbind(rsDist_samp_304, summary(lm(forDist_samp_304$InvDistanceData ~ forDist_samp_304[,i]))$r.squared)
+}
+
+psDist_samp_304 = NULL #empty to hold p.values values from lm()
+
+for (i in 2:ncol(forDist_samp_304)){
+    psDist_samp_304  <- rbind(psDist_samp_304, summary(lm(forDist_samp_304$InvDistanceData ~ forDist_samp_304[,i]))$coefficients["forDist_samp_304[, i]","Pr(>|t|)"])
+    print(summary(lm(forDist_samp_304$InvDistanceData ~ forDist_samp_304[,i]))$coefficients["forDist_samp_304[, i]","Pr(>|t|)"])
+}
+
+
+r.names <- c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi","unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi","unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")
+Analysis=c("Full", "Full", "Full", "Full", "Internal", "Internal", "Internal", "Internal","Tips", "Tips","Tips", "Tips")
+
+
+dfDist_samp_304 <- data.frame(r.square = rsDist_samp_304,  p.values = psDist_samp_304, Passage = factor(r.names, levels = r.names), Analysis)
+
+signif=rep("", nrow(dfDist_samp_304))
+signif[dfDist_samp_304$p.values<0.05] <- "*"
+signif[dfDist_samp_304$p.values<0.01] <- "**"
+signif[dfDist_samp_304$p.values<0.001] <- "***"
+dfDist_samp_304 <- cbind (dfDist_samp_304, signif)
+
+distbar_samp_304<-ggplot(aes(x = Passage, y = r.square), data = dfDist_samp_304) +
+  scale_fill_manual(values=palette) +
+  geom_bar(stat = 'identity', aes(fill=Analysis)) +
+  geom_text(aes(x= Passage, y=r.square + 0.002, label=signif), size=8) +
+  ylab(expression(paste("Variance Explained (R"^"2", ')', sep=''))) +
+  theme(plot.margin = unit(c(6,6,0,6), "pt"),   axis.title.x=element_blank(), axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  scale_y_continuous(limits = c(0, 0.18)) +
+  facet_wrap(~Analysis) +
+  background_grid(major = 'y', minor = "none") + # add thin horizontal lines
+  panel_border() # and a border around each panel +
+distbar_samp_304
+```
+RSA (304  sequences, nonsiatserial, nonsiatsingle, 2005-2015) 
+```{r message=FALSE, warning=FALSE}
+forRSA_samp_304<-data.frame(cbind(RSAData, fulldf_samp_304, intdf_samp_304, tipsdf_samp_304))
+forRSA_samp_304<-forRSA_samp_304[!is.na(forRSA_samp_304$RSAData), ] #only calculate correlations for sites w/ RSA value
+forRSA_samp_304 <- data.frame(sapply(forRSA_samp_304[], as.numeric))
+
+rsRSA_samp_304 = NULL #empty to hold r.squared values from lm()
+
+for (i in 2:ncol(forRSA_samp_304)){
+    rsRSA_samp_304  <- rbind(rsRSA_samp_304, summary(lm(forRSA_samp_304$RSAData ~ forRSA_samp_304[,i]))$r.squared)
+}
+
+
+psRSA_samp_304 = NULL #empty to hold p.values values from lm()
+
+for (i in 2:ncol(forRSA_samp_304)){
+    psRSA_samp_304  <- rbind(psRSA_samp_304, summary(lm(forRSA_samp_304$RSAData ~ forRSA_samp_304[,i]))$coefficients["forRSA_samp_304[, i]","Pr(>|t|)"])
+    print(summary(lm(forRSA_samp_304$RSAData ~ forRSA_samp_304[,i]))$coefficients["forRSA_samp_304[, i]","Pr(>|t|)"])
+}
+
+r.names <- c("unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi","unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi","unpassaged", "nonSIAT1single","nonSIAT1double","nonSIAT1multi")
+Analysis=c("Full", "Full", "Full", "Full", "Internal", "Internal", "Internal", "Internal","Tips", "Tips","Tips", "Tips")
+
+dfRSA_samp_304 <- data.frame(r.square = rsRSA_samp_304,  p.values = psRSA_samp_304, Passage = factor(r.names, levels = r.names), Analysis)
+
+signif=rep("", nrow(dfRSA_samp_304))
+signif[dfRSA_samp_304$p.values<0.05] <- "*"
+signif[dfRSA_samp_304$p.values<0.01] <- "**"
+signif[dfRSA_samp_304$p.values<0.001] <- "***"
+dfRSA_samp_304 <- cbind (dfRSA_samp_304, signif)
+
+
+rsabar_samp_304<-ggplot(aes(x = Passage, y = r.square), data = dfRSA_samp_304) +
+  geom_bar(stat = 'identity', aes(fill=Analysis)) +
+  geom_text(aes(x= Passage, y=r.square + 0.002, label=signif), size=8) +
+  scale_fill_manual(values=palette) +
+  ylab(expression(paste("Variance Explained (R"^"2", ')', sep=''))) +
+  theme(plot.margin = unit(c(6,6,0,6), "pt"), axis.title.x=element_blank(),  axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  scale_y_continuous(limits = c(0, 0.2)) +
+  facet_wrap(~Analysis) +
+  background_grid(major = 'y', minor = "none") + # add thin horizontal lines
+  panel_border() # and a border around each panel 
+
+rsabar_samp_304
+
+```
+
+dN/dS jitter plots (304  sequences, nonsiatserial, SIAT1, nonSIAT, 2005-2015)
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
+
+
+labelsvect <- c(rep("unpassaged", times=566), rep("nonSIATsingle", times=566),rep("nonSIAT1double", times=566),rep("nonSIAT1multi", times=566))
+
+facetvect <-rep("Full", times = 566*4)
+
+fullmelt_samp_304 <- cbind(melt(fulldNs_samp_304), labelsvect, facetvect)
+
+facetvect <-rep("Internal", times = 566*4)
+intmelt_samp_304 <- cbind(melt(intdNs_samp_304), labelsvect, facetvect)
+
+facetvect <-rep("Tips", times = 566*4)
+tipsmelt_samp_304 <- cbind(melt(tipsdNs_samp_304), labelsvect, facetvect)
+
+allmelt_samp_304 <- rbind(fullmelt_samp_304, intmelt_samp_304, tipsmelt_samp_304)
+
+
+
+
+
+dot_samp_304 <- ggplot(data = allmelt_samp_304, aes(x=Var2, y=value)) +
+             geom_jitter(aes(colour=Var2), size=3) + 
+             #geom_jitter( size=3) +
+             #geom_violin(aes(fill=labelsvect, line=labelsvect)) +
+             #scale_fill_manual(values=palette) +
+             geom_hline(yintercept=1)  + 
+             facet_wrap(~facetvect, ncol=3) +
+             scale_colour_manual(values=palette) +
+             #theme(legend.position="none", axis.title.x=element_blank(), axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+             theme(axis.title.x=element_blank(), axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+             labs(colour="Passage") +
+             ylab("dN/dS") +
+             ylim(0,20) +
+             panel_border()
+print(dot_samp_304)
+
+
+
+
+unpassagedfull_304 <- filter(allmelt_samp_304,Var2=="unpassaged", facetvect=="Full")$value
+nonsiatsinglefull_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1single", facetvect=="Full")$value
+nonsiatdoublefull_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1double", facetvect=="Full")$value
+nonsiatmultifull_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1multi", facetvect=="Full")$value
+
+unpassagedint_304 <- filter(allmelt_samp_304,Var2=="unpassaged", facetvect=="Internal")$value
+nonsiatsingleint_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1single", facetvect=="Internal")$value
+nonsiatdoubleint_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1double", facetvect=="Internal")$value
+nonsiatmultiint_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1multi", facetvect=="Internal")$value
+
+unpassagedtips_304 <- filter(allmelt_samp_304,Var2=="unpassaged", facetvect=="Tips")$value
+nonsiatsingletips_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1single", facetvect=="Tips")$value
+nonsiatdoubletips_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1double", facetvect=="Tips")$value
+nonsiatmultitips_304 <- filter(allmelt_samp_304, Var2=="nonSIAT1multi", facetvect=="Tips")$value
+
+
+print(t.test(unpassagedfull_304, nonsiatsinglefull_304, paired=TRUE))
+print(t.test(unpassagedfull_304, nonsiatdoublefull_304, paired=TRUE))
+print(t.test(unpassagedfull_304, nonsiatmultifull_304, paired=TRUE))
+
+print(t.test(unpassagedint_304, nonsiatsingleint_304, paired=TRUE))
+print(t.test(unpassagedint_304, nonsiatdoubleint_304, paired=TRUE))
+print(t.test(unpassagedint_304, nonsiatmultiint_304, paired=TRUE))
+
+print(t.test(unpassagedtips_304, nonsiatsingletips_304, paired=TRUE))
+print(t.test(unpassagedtips_304, nonsiatdoubletips_304, paired=TRUE))
+print(t.test(unpassagedtips_304, nonsiatmultitips_304, paired=TRUE))
+```
+
+
 #### 1703 sequences, unpassaged, nonSIAT1, 2005-2015 (Figure 5,6) 
 
 Make supplementary table (1703 sequences, unpassaged, nonSIAT1 2005-2015 (Figure 5 and 6))
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 Fig5and6Data <- p[, c(
 
@@ -878,7 +1319,7 @@ write.csv(Fig5and6Data, file = "Figure5and6Data.csv", row.names=FALSE)
 ```
 Filter for dN/dS data (1703 seqs, unpassaged, nonSIAT1, 2005-2015)
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 #Organize data for structure color maps
 
 fullData_samp_1703<-filter(dndsData, Analysis=="full", selection=="1703a", timeperiod=="2005-2015")
@@ -904,7 +1345,7 @@ tipsdf_samp_1703[] <- lapply(tipsdf_samp_1703, as.numeric) #Preserve floats
 ```
 
 Moving inverse distance correlations for structure painting (1703 seqs unpassaged, nonSIAT1, 2005-2015)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 
 nonsiatdf <- as.data.frame(fulldf_samp_1703$nonSIAT)[!is.na(p$pdb.2yp7),] #dN/dS must align with structure for color mapping
@@ -912,10 +1353,10 @@ nonsiatdf <- as.data.frame(fulldf_samp_1703$nonSIAT)[!is.na(p$pdb.2yp7),] #dN/dS
 unpassageddf <-as.data.frame(fulldf_samp_1703$unpassaged)[!is.na(p$pdb.2yp7),]
 
 
-write.table(data.frame(nonsiatdf), file="nonsiat_dnds.raw", row.names=F, col.names=F) 
+write.table(data.frame(nonsiatdf), file="nonsiat_1703_dnds.raw", row.names=F, col.names=F) 
 
 #write.table(data.frame(fulldf_samp_cellunpass), file="unpassaged1000_dnds.raw", row.names=F, col.names=F)
-write.table(data.frame(unpassageddf), file="unpassaged_dnds.raw", row.names=F, col.names=F)
+write.table(data.frame(unpassageddf), file="unpassaged_1703_dnds.raw", row.names=F, col.names=F)
 
 dnds.corr <- c()
 p.values <- c() 
@@ -928,7 +1369,7 @@ for (i in 1:ncol(distances.dat)){   #for each amino acid in hemagglutinin:
      
      p.values <- append(p.values, cor.test(x = nonsiatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
      }
-write.table(data.frame(dnds.corr), file="nonsiat_inverse_dnds.corr", row.names=F, col.names=F)
+write.table(data.frame(dnds.corr), file="nonsiat_1703_inverse_dnds.corr", row.names=F, col.names=F)
 
 dnds.corr <- c()
 p.values <- c()
@@ -936,7 +1377,7 @@ for (i in 1:ncol(distances.dat)){
      dnds.corr<-append(dnds.corr, (cor(x = unpassageddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))))
      p.values <- append(p.values, cor.test(x = unpassageddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
      }
-write.table(data.frame(dnds.corr), file="unpassaged_inverse_dnds.corr", row.names=F, col.names=F)
+write.table(data.frame(dnds.corr), file="unpassaged_1703_inverse_dnds.corr", row.names=F, col.names=F)
 
 
 dnds.corr <- c()
@@ -945,7 +1386,7 @@ for (i in 1:ncol(distances.dat)){
      dnds.corr<-append(dnds.corr, (cor(x = nonsiatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
      p.values <- append(p.values, cor.test(x = nonsiatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
      }
-write.table(data.frame(dnds.corr), file="nonsiat_dnds.corr", row.names=F, col.names=F)
+write.table(data.frame(dnds.corr), file="nonsiat_1703_dnds.corr", row.names=F, col.names=F)
 
 dnds.corr <- c()
 p.values <- c()
@@ -953,16 +1394,273 @@ for (i in 1:ncol(distances.dat)){
      dnds.corr<-append(dnds.corr, (cor(x = unpassageddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
      p.values <- append(p.values, cor.test(x = unpassageddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
      }
-write.table(data.frame(dnds.corr), file="unpassaged_dnds.corr", row.names=F, col.names=F)
+write.table(data.frame(dnds.corr), file="unpassaged_1703_dnds.corr", row.names=F, col.names=F)
 
 ```
 
+#### All sequences, unpassaged, nonSIAT1, SIAT1, pooled, 2005-2015 (Figure 5,6) 
+
+Make supplementary table (all sequences, unpassaged, nonSIAT1, siat 2005-2015 (Figure 5 and 6))
+```{r message=FALSE, warning=FALSE}
+
+Fig5and6DataAlt <- p[, c(
+
+     
+      "Gene", 
+      "Protein", 
+      "pdb.2yp7",
+      "complete_unpassaged_all_20052015_full", 
+      "complete_nonsiat_all_20052015_full",
+      "complete_siat_all_20052015_full",
+      "complete_pooled_all_20052015_full" 
+      )]
+
+write.csv(Fig5and6Data, file = "Figure5and6DataAlt1.csv", row.names=FALSE)
 
 
+```
+Filter for dN/dS data (all available) seqs, unpassaged, nonSIAT1, 2005-2015)
+
+```{r message=FALSE, warning=FALSE}
+#Organize data for structure color maps
+
+fullData_complete_all<-filter(dndsData, Analysis=="full", selection=="all", timeperiod=="2005-2015")
+temp_complete_all<-split(as.numeric(as.character(fullData_complete_all$dNdS)), fullData_complete_all$passage)
+fulldNs_complete_all <- cbind(temp_complete_all[["unpassaged"]],temp_complete_all[["nonSIAT"]],temp_complete_all[["SIAT1"]],temp_complete_all[["pooled"]])
+colnames(fulldNs_complete_all) <- c("unpassaged", "nonSIAT", "SIAT1", "pooled")
+fulldf_complete_all <- data.frame(fulldNs_complete_all)
+fulldf_complete_all[] <- lapply(fulldf_complete_all, as.numeric) #Preserve floats
+
+
+```
+
+Moving inverse distance correlations for structure painting (1703 seqs unpassaged, nonSIAT1, 2005-2015)
+```{r message=FALSE, warning=FALSE}
+
+
+nonsiatdf <- as.data.frame(fulldf_complete_all$nonSIAT)[!is.na(p$pdb.2yp7),] #dN/dS must align with structure for color mapping
+
+unpassageddf <-as.data.frame(fulldf_complete_all$unpassaged)[!is.na(p$pdb.2yp7),]
+siatdf <-as.data.frame(fulldf_complete_all$SIAT1)[!is.na(p$pdb.2yp7),]
+pooleddf <-as.data.frame(fulldf_complete_all$pooled)[!is.na(p$pdb.2yp7),]
+
+write.table(data.frame(nonsiatdf), file="nonsiat_all_dnds.raw", row.names=F, col.names=F) 
+
+#write.table(data.frame(fulldf_samp_cellunpass), file="unpassaged1000_dnds.raw", row.names=F, col.names=F)
+write.table(data.frame(unpassageddf), file="unpassagedall__dnds.raw", row.names=F, col.names=F)
+
+write.table(data.frame(siatdf), file="siat_all_dnds.raw", row.names=F, col.names=F) 
+write.table(data.frame(pooleddf), file="pooled_all_dnds.raw", row.names=F, col.names=F) 
+
+dnds.corr <- c()
+p.values <- c() 
+
+#Each column in distances.dat corresponds to one amino acid. Each value is the distance from that columns reference amino acid to another amino acid in the structure.  
+
+
+for (i in 1:ncol(distances.dat)){   #for each amino acid in hemagglutinin:
+     dnds.corr<-append(dnds.corr, (cor(x = nonsiatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0])))) #Take the correlation of the vector of all sites dN/dS values with the vector of inverse distances from that amino acid to each other amino acid. Since the distance from an amino acid to itself is zero, exclude these since can't divide by zero. 
+     
+     p.values <- append(p.values, cor.test(x = nonsiatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="nonsiat_all_inverse_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = unpassageddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))))
+     p.values <- append(p.values, cor.test(x = unpassageddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="unpassaged_all_inverse_dnds.corr", row.names=F, col.names=F)
+
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = siatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))))
+     p.values <- append(p.values, cor.test(x = siatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="siat_all_inverse_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = pooleddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))))
+     p.values <- append(p.values, cor.test(x = pooleddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="pooled_all_inverse_dnds.corr", row.names=F, col.names=F)
+
+
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = nonsiatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = nonsiatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="nonsiat_all_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = unpassageddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = unpassageddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="unpassaged_all_dnds.corr", row.names=F, col.names=F)
+
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = siatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = siatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="siat_all_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = pooleddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = pooleddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="pooled_all_dnds.corr", row.names=F, col.names=F)
+
+
+```
+
+#### All sequences, unpassaged, nonSIAT1, SIAT1, pooled, 2005-2015 (Figure 5,6) 
+
+Make supplementary table (1046 sequences, unpassaged, nonSIAT1, siat, pooled 2005-2015 (Figure 5 and 6))
+```{r message=FALSE, warning=FALSE}
+
+Fig5and6DataAlt2 <- p[, c(
+
+     
+      "Gene", 
+      "Protein", 
+      "pdb.2yp7",
+      "samp_unpassaged_1046a_20052015_full", 
+      "samp_nonsiat_1046a_20052015_full",
+      "samp_siat_1046a_20052015_full",
+      "samp_pooled_1046a_20052015_full" 
+      )]
+
+write.csv(Fig5and6Data, file = "Figure5and6DataAlt2.csv", row.names=FALSE)
+
+
+```
+Filter for dN/dS data (all available) seqs, unpassaged, nonSIAT1, 2005-2015)
+
+```{r message=FALSE, warning=FALSE}
+#Organize data for structure color maps
+
+fullData_complete_1046a<-filter(dndsData, Analysis=="full", selection=="1046a", timeperiod=="2005-2015")
+temp_complete_1046a<-split(as.numeric(as.character(fullData_complete_1046a$dNdS)), fullData_complete_1046a$passage)
+fulldNs_complete_1046a <- cbind(temp_complete_1046a[["unpassaged"]],temp_complete_1046a[["nonSIAT"]],temp_complete_1046a[["SIAT1"]],temp_complete_1046a[["pooled"]])
+colnames(fulldNs_complete_1046a) <- c("unpassaged", "nonSIAT", "SIAT1", "pooled")
+fulldf_complete_1046a <- data.frame(fulldNs_complete_1046a)
+fulldf_complete_1046a[] <- lapply(fulldf_complete_1046a, as.numeric) #Preserve floats
+
+
+```
+
+Moving inverse distance correlations for structure painting (1703 seqs unpassaged, nonSIAT1, 2005-2015)
+```{r message=FALSE, warning=FALSE}
+
+
+nonsiatdf <- as.data.frame(fulldf_complete_1046a$nonSIAT)[!is.na(p$pdb.2yp7),] #dN/dS must align with structure for color mapping
+
+unpassageddf <-as.data.frame(fulldf_complete_1046a$unpassaged)[!is.na(p$pdb.2yp7),]
+siatdf <-as.data.frame(fulldf_complete_1046a$SIAT1)[!is.na(p$pdb.2yp7),]
+pooleddf <-as.data.frame(fulldf_complete_1046a$pooled)[!is.na(p$pdb.2yp7),]
+
+write.table(data.frame(nonsiatdf), file="nonsiat_1046a_dnds.raw", row.names=F, col.names=F) 
+
+#write.table(data.frame(fulldf_samp_cellunpass), file="unpassaged1000_dnds.raw", row.names=F, col.names=F)
+write.table(data.frame(unpassageddf), file="unpassagedall__dnds.raw", row.names=F, col.names=F)
+
+write.table(data.frame(siatdf), file="siat_1046a_dnds.raw", row.names=F, col.names=F) 
+write.table(data.frame(pooleddf), file="pooled_1046a_dnds.raw", row.names=F, col.names=F) 
+
+dnds.corr <- c()
+p.values <- c() 
+
+#Each column in distances.dat corresponds to one amino acid. Each value is the distance from that columns reference amino acid to another amino acid in the structure.  
+
+
+for (i in 1:ncol(distances.dat)){   #for each amino acid in hemagglutinin:
+     dnds.corr<-append(dnds.corr, (cor(x = nonsiatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0])))) #Take the correlation of the vector of all sites dN/dS values with the vector of inverse distances from that amino acid to each other amino acid. Since the distance from an amino acid to itself is zero, exclude these since can't divide by zero. 
+     
+     p.values <- append(p.values, cor.test(x = nonsiatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="nonsiat_1046a_inverse_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = unpassageddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))))
+     p.values <- append(p.values, cor.test(x = unpassageddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="unpassaged_1046a_inverse_dnds.corr", row.names=F, col.names=F)
+
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = siatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))))
+     p.values <- append(p.values, cor.test(x = siatdf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="siat_1046a_inverse_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = pooleddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))))
+     p.values <- append(p.values, cor.test(x = pooleddf[distances.dat[,i] != 0], y= 1/((distances.dat[,i])[distances.dat[,i] != 0]))$p.value)
+     }
+write.table(data.frame(dnds.corr), file="pooled_1046a_inverse_dnds.corr", row.names=F, col.names=F)
+
+
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = nonsiatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = nonsiatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="nonsiat_1046a_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = unpassageddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = unpassageddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="unpassaged_1046a_dnds.corr", row.names=F, col.names=F)
+
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = siatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = siatdf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="siat_1046a_dnds.corr", row.names=F, col.names=F)
+
+dnds.corr <- c()
+p.values <- c()
+for (i in 1:ncol(distances.dat)){
+     dnds.corr<-append(dnds.corr, (cor(x = pooleddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])))
+     p.values <- append(p.values, cor.test(x = pooleddf[distances.dat[,i] != 0], y= (distances.dat[,i])[distances.dat[,i] != 0])$p.value)
+     }
+write.table(data.frame(dnds.corr), file="pooled_1046a_dnds.corr", row.names=F, col.names=F)
+
+
+```
 #### 79 sequences,  all passages, 2005-2015 (Supplementary Figure 1)
 
 Make supplementary table (79 sequences, unpassaged, monkey, egg, cell, pooled, 2005-2015 (Figure 5))
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 SFig1Data <- p[, c(
 
@@ -1029,7 +1727,7 @@ write.csv(SFig1Data, file = "SFigure1Data.csv", row.names=FALSE)
 ```
 
 Filter for dN/dS data (79 sequences, all passages, 2005-2015)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 Data_samp_79<-filter(dndsData, Analysis=="full", selection=="79a"|selection=="79b"|selection=="79c", timeperiod=="2005-2015")
 temp_samp_79<-split(as.numeric(as.character(Data_samp_79$dNdS)), list(Data_samp_79$passage, Data_samp_79$selection)) #pull each sitewise dN/dS list for each passage type into its own vector
@@ -1064,7 +1762,7 @@ tipsdf_samp_79[] <- lapply(tipsdf_samp_79, as.numeric)
 ```
 
 Correlating sitewise dN/dS between passage types. Formatting datatables for heatmap with significance (79 sequences, all passages, 2005-2015)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 fullcorr_samp_79.rs  = get_corr_and_signif(fulldNs_samp_79)[1]
 fullcorr_samp_79.ps  = get_corr_and_signif(fulldNs_samp_79)[2]  
@@ -1081,7 +1779,7 @@ tipscorr_samp_79 <- step_heatmap(tipscorr_samp_79.rs, tipscorr_samp_79.ps)
 ```
 
 Plot heatmaps of correlations between sitewise dN/dS between difference passages (79 sequences, all passages, 2005-2015) => fullsheat_samp_79, intheat_samp_79, tipsheat_samp_79
-```{r fig.width=20, fig.height=6}
+```{r fig.width=20, fig.height=6, message=FALSE, warning=FALSE}
 
 fullheat_samp_79 <-ggplot(fullcorr_samp_79, aes(x=Var1, y=Var2, fill=r)) + geom_tile() + 
 geom_text(aes(label=round(r,1)))+ 
@@ -1119,7 +1817,7 @@ tipsheat_samp_79 <- ggdraw(switch_axis_position(tipsheat_samp_79, axis = 'x')) #
 ```
 
 #### 249 sequences, unpassaged, nonSIAT1, SIAT1, 2014 (Supplementary Figure 2)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 SFig2Data <- p[, c(
 
@@ -1148,7 +1846,7 @@ write.csv(SFig2Data, file = "SFigure2Data.csv", row.names=FALSE)
 
 ```
 Filter for dN/dS data (249 sequences, unpassaged, SIAT1, nonSIAT, 2014)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 fulldatasiat<-filter(dndsData, Analysis=="full", selection=="249a", timeperiod=="2014")
 temp_samp_249<-split(as.numeric(as.character(fulldatasiat$dNdS)), fulldatasiat$passage) #pull each sitewise dN/dS list for each passage type into its own vector
@@ -1174,7 +1872,7 @@ tipsdf_samp_249[] <- lapply(tipsdf_samp_249, as.numeric)
 ```
 
 Correlating sitewise dN/dS between passage types. Formatting datatables for heatmap with significance (249 sequences, unpassaged, SIAT1, nonSIAT, 2014)
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 fullcorr_samp_249.rs  = get_corr_and_signif(fulldNs_samp_249)[1]
 fullcorr_samp_249.ps  = get_corr_and_signif(fulldNs_samp_249)[2]  
@@ -1192,7 +1890,7 @@ tipscorr_samp_249 <- step_heatmap(tipscorr_samp_249.rs, tipscorr_samp_249.ps)
 ```
 
 Plot heatmaps of correlations between sitewise dN/dS between difference passages(249 sequences, unpassaged, SIAT1, nonSIAT, 2014)
-```{r fig.width=20, fig.height=6}
+```{r message=FALSE, warning=FALSE, fig.width=20, fig.height=6}
 
 
 fullheat_samp_249 <-ggplot(fullcorr_samp_249, aes(x=Var1, y=Var2, fill=r)) + 
@@ -1231,12 +1929,12 @@ tipsheat_samp_249 <- ggdraw(switch_axis_position(tipsheat_samp_249, axis = 'x'))
 prow<-plot_grid(fullheat_samp_249,intheat_samp_249,tipsheat_samp_249, labels = c("A", "B", "C"), ncol = 3)  #grid of three heatmaps
 
 corrheatmaps_samp_249 <- plot_grid(prow, legend, rel_widths = c(3, .3)) #add in the legend
-#print(corrheatmaps_samp_249)
+print(corrheatmaps_samp_249)
 
 ```
 
 dN/dS jitter plots (249 sequences, unpassaged, SIAT1, nonSIAT, 2014) => dot_samp_249
-```{r fig.width=20, fig.height=6}
+```{r message=FALSE, warning=FALSE, fig.width=20, fig.height=6}
 
 
 labelsvect <- c(rep("unpassaged", times=566), rep("siat", times=566), rep("nonSIAT", times=566))
@@ -1296,7 +1994,7 @@ print(dot_samp_249)
 ```
 
 ### Figures
-```{r}
+```{r message=FALSE, warning=FALSE}
 
 fig2D <- plot_grid(dot_samp_917, NULL, labels=c("D"), rel_widths = c(3, .3)) #add in the legend space
 fig2 <- plot_grid(corrheatmaps_samp_917, fig2D, nrow = 2)
@@ -1326,6 +2024,13 @@ png(file="figS2.png", width=13, height=8, units="in", res = 300)
 print(sfig2)
 dev.off()
 
+png(file="figS4.png", width=13, height=8, units="in", res = 300)
+print(trunk_fig)
+dev.off()
 
+inc_fig <- plot_grid(distbar_samp_304,rsabar_samp_304,dot_samp_304, ncol=1, labels = c("A", "B", "C"))
+png(file="figS5.png", width=10, height=12, units="in", res = 300)
+print(inc_fig)
+dev.off()
 ```
 

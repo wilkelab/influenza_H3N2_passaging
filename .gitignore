@@ -1,0 +1,9 @@
+#compiled python modules
+*.pyc 
+*.swp
+*.swo
+
+#tmp files
+*.tmp
+
+

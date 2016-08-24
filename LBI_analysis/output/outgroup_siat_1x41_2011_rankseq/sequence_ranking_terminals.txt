@@ -1,0 +1,2 @@
+#name	rank	LBI
+S1_|_A_NORTH_DAKOTA_06_2011	1	0

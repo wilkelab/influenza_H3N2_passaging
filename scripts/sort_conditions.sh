@@ -18,8 +18,11 @@ CONDITION=$1
 #OPTION should be either "samp" or "comp"
 #samp if doing a random draw of sequences
 #complete if no random draw
+#div if single year
 OPTION=$2
 
+
+METHOD=$3
 
 BASEDIR=~/influenza_passaging_effects
 
@@ -45,19 +48,40 @@ do
 	cat $f $BASEDIR/fastas/formatting_fastas/outgroup.fasta > ${f/${OPTION}/outgroup}
 
 done
-#################### Make trees from the outgroup containing FASTAs
 
-echo "begin making trees"
+if ["$METHOD" == manual] 
+    #################### Make trees from the outgroup containing FASTAs
 
-
-for h in outgroup_*.fasta
-do 
-      FastTree -gtr -nt -nosupport $h > ${h/fasta/tree}
-      echo "$h"
-done
+    echo "begin making trees"
 
 
+    for h in outgroup_*.fasta
+    do 
+        FastTree -gtr -nt -nosupport $h > ${h/fasta/tree}
+        echo "$h"
+    done
+fi
 
+if ["$METHOD" == auto]
+
+    fulltree=BASEDIR/trees/allsequences20052015_trees/complete_pooled_all_20052015.tree
+    echo "formatting $fulltree"
+    grep '(' $fulltree > newick.tmp
+    sed -i 's/tree tree_1 = \[&R\]//g' newick.tmp
+    sed -i 's/ //g' newick.tmp
+    #    sed -i 's/[|]/_/g' $f.tmp
+    sed -i 's/^M$//g' newick.tmp
+    sed -i "s/'//g" newick.tmp
+    sed -i 's/    //g' newick.tmp
+
+    echo "begin trimming trees"
+    for h in ${OPTION}_*.fasta
+    do
+        treeoutfile=${h%.fasta}.tree
+        python $BASEDIR/scripts/prune_trees.py newick.tmp $h $treeoutfile  
+    done
+
+fi
 #################### Sorting files into folders
 
 rm -rf $BASEDIR/trees/${CONDITION}_trees/ 

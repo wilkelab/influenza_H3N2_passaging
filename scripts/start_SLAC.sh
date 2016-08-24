@@ -46,6 +46,7 @@ do
 
 
     #All of the formatting necessary to get the FASTA headers into format for HYPHY
+    #Most cleaning only affect NEXUS format from FigTree, but pipes and apostrophes need to be removed from all newicks
     echo "formatting $f"
     grep '(' $f > $f.tmp
     sed -i 's/tree tree_1 = \[&R\]//g' $f.tmp

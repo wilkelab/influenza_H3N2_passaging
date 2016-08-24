@@ -1,0 +1,368 @@
+---
+title: "Local Branching Index Analysis"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(ggplot2)
+#library(plyr)
+library(dplyr)
+library(cowplot)
+
+```
+
+```{r}
+palette <- c("#FF0000", "#0072B2", "#979797","#009E24", "#666699", "#E69F00", "#660066" )
+```
+
+####First dataset is all sequences from all passage types 2005-2015 with three fitness inferences, and the LBI rank.
+```{r eval=FALSE}
+
+lbi <- read.table("single_year_analysis_no_sequences.txt", header=TRUE, sep="\t")
+
+```
+
+
+####Fitness inference values are very dependent on # of sequences, and do not plateauing until 500 sequences.  The LBI plateus around 100 sequences. However, since these measures are used for ranking sequences within a group, not comparing between groups, this seems fine.
+```{r fig.height=6, fig.width=8, warning=FALSE, message=FALSE, eval=FALSE}
+lbi_values <- ggplot(lbi, aes(x=num_seq, y=mean, color=stat)) +
+       geom_point() +
+       facet_wrap(~passage, nrow = 2)
+lbi_values
+
+```
+
+
+
+Charting a year's prediction against hamming distance to next season's ancestor. Fitness inferences and LBI behave similarly. Recaps elife paper.
+```{r fig.height=6, fig.width=8, warning=FALSE, message=FALSE, eval=FALSE}
+#lbi_self <- lbi %>% filter(hamming_to_next_self != 'n/a')
+
+lbi$hamming_to_next_self <- as.numeric(as.character(lbi$hamming_to_next_self))
+
+lbi_ham_to_self <- ggplot(lbi,aes(x=year, y=hamming_to_next_self, color=passage, group=passage))+
+           geom_line() +
+           geom_point() +
+           facet_wrap(~stat)
+
+lbi$hamming_to_next_unpassaged <- as.numeric(as.character(lbi$hamming_to_next_unpassaged))
+
+lbi_ham_to_unpassaged <- ggplot(lbi,aes(x=year, y=hamming_to_next_unpassaged, color=passage, group=passage))+
+           geom_line() +
+           geom_point() +
+           facet_wrap(~stat)
+
+
+lbi$hamming_to_next_pooled <- as.numeric(as.character(lbi$hamming_to_next_pooled))
+lbi_ham_to_pooled <- ggplot(lbi,aes(x=year, y=hamming_to_next_pooled, color=passage, group=passage))+
+           geom_line() +
+           geom_point()+
+           facet_wrap(~stat) +
+           scale_x_continuous(limits = c(2005, 2015), breaks = c(2005, 2010, 2015))
+
+lbi_ham_to_pooled
+
+```
+
+
+
+####In the next dataset, I randomly drew 50 sets of 100 sequences (or 70% if too few sequences) from each passage/year condition. The formula to calculate the ratio for a single group is:
+
+
+####nucleotide hamming distance of top LBI rank sequence to next year ancestral progenitor / 
+####nucleotide hamming distance of randomly sequence to next year ancestral progenitor
+
+####This is the same as the elife paper's Figure 4 (though with standard deviations!), and run on my sequence data set. 
+```{r}
+lbi100 <- read.table("single_year_analysis_50draws_sequences.txt", header=TRUE, sep="\t")
+```
+
+```{r  fig.height=6, fig.width=8, warning=FALSE, message=FALSE, eval=FALSE, echo=FALSE}
+test <- ggplot(lbi100, aes(x = year, y = ratio_pooled, group=passage, color=passage)) +
+      geom_point() +
+      geom_smooth(aes(fill=passage)) +
+      geom_hline(aes(yintercept=1))
+
+test
+```
+
+
+Taking the mean and standard deviation of each of the 50 trials.
+```{r fig.height=6, fig.width=8, warning=FALSE, message=FALSE}
+#lbi_cols = lbi100[c("passage", "year", "hamming_to_next_self", "hamming_to_next_pooled", "hamming_to_next_unpassaged", "hamming_rand_self", "hamming_rand_pooled", "hamming_rand_unpassaged", "mean", "num_seq", "ratio_self", "ratio_pooled", "ratio_unpassaged")]  
+                
+by_cond100 <- lbi100 %>% group_by(passage, year) %>% summarize(
+             
+                  mean_ham_to_self =  mean(as.numeric(as.character(hamming_to_next_self)), na.rm = TRUE),
+                  sd_ham_to_self =  sd(as.numeric(as.character(hamming_to_next_self)), na.rm = TRUE),
+                  mean_ham_to_unpassaged =  mean(as.numeric(as.character(hamming_to_next_unpassaged)), na.rm = TRUE),
+                  sd_ham_to_unpassaged = sd(as.numeric(as.character(hamming_to_next_unpassaged)), na.rm = TRUE),
+                  mean_ham_to_pooled =  mean(as.numeric(as.character(hamming_to_next_pooled)), na.rm = TRUE),
+                  sd_ham_to_pooled = sd(as.numeric(as.character(hamming_to_next_pooled)), na.rm = TRUE),
+                  mean_score =  mean(as.numeric(as.character(mean)), na.rm = TRUE),
+                  sd_mean_score =  sd(as.numeric(as.character(mean)), na.rm = TRUE),
+                  num_seq =  mean(as.numeric(as.character(num_seq)), na.rm = TRUE),
+                    
+                  mean_ham_rand_to_self =  mean(as.numeric(as.character(hamming_rand_self)), na.rm = TRUE),
+                  sd_ham_rand_to_self =  sd(as.numeric(as.character(hamming_rand_self)), na.rm = TRUE),
+                  mean_ham_rand_to_unpassaged =  mean(as.numeric(as.character(hamming_rand_unpassaged)), na.rm = TRUE),
+                  sd_ham_rand_to_unpassaged =sd(as.numeric(as.character(hamming_rand_unpassaged)), na.rm = TRUE),
+                  mean_ham_rand_to_pooled = mean(as.numeric(as.character(hamming_rand_pooled)), na.rm = TRUE),
+                  sd_ham_rand_to_pooled =  sd(as.numeric(as.character(hamming_rand_pooled)), na.rm = TRUE),                  
+                  
+                  mean_ratio_to_self = mean( as.numeric(as.character(ratio_self)), na.rm = TRUE),
+                  sd_ratio_to_self = sd( as.numeric(as.character(ratio_self)), na.rm = TRUE),
+                  mean_ratio_to_unpassaged = mean(as.numeric(as.character( ratio_unpassaged)), na.rm = TRUE),
+                  sd_ratio_to_unpassaged = sd( as.numeric(as.character(ratio_unpassaged)), na.rm = TRUE), 
+                  mean_ratio_to_pooled = mean( as.numeric(as.character(ratio_pooled)), na.rm = TRUE),
+                  sd_ratio_to_pooled = sd( as.numeric(as.character(ratio_pooled)), na.rm = TRUE) 
+                  
+)
+
+```
+
+```{r eval = FALSE, echo=FALSE}
+
+a <- ggplot(data=lbi100, aes(x=year, y=mean, group=passage, color=passage)) +
+      geom_point() 
+
+b <- ggplot(data=by_cond100, aes(x=year, y=mean_score, group=passage, color=passage)) +
+      geom_line()+
+      geom_point()
+
+c <- ggplot(data=lbi100, aes(x=num_seq, y=mean, color=passage)) +
+    geom_point()
+
+a
+b
+c
+```
+
+
+####First, without standard deviations for clarity. Each point is the mean ratio for the year's top LBI rank sequence. The point at 2007 is the ability of the top 2007 sequence to predict the ancestral 2008 sequence.
+
+####I compare ability to predict the following year's ancestral sequences from the same passage group, from the unpassaged group, and from the pooled group. The line at 1 represents a random choice of sequence. 
+```{r fig.height=8, fig.width=12, warning=FALSE, message=FALSE}
+levels(by_cond100$passage) <- c( "cell","egg","monkey","non-SIAT1","pooled" ,"SIAT1","unpassaged")
+
+by_cond_ratio_to_self <- ggplot(data=by_cond100, aes(x=year, y=mean_ratio_to_self, group=passage, color=passage)) +
+      geom_line()+
+      geom_point()+
+      geom_hline(aes(yintercept=1)) +
+     scale_x_continuous(limits = c(2005, 2015), breaks = c(2005, 2007, 2009, 2011, 2013, 2015))+
+     ylab= "Mean ratio to next self"
+
+by_cond_ratio_to_unpassaged <- ggplot(data=by_cond100, aes(x=year, y=mean_ratio_to_unpassaged, group=passage, color=passage)) +
+      geom_line()+
+      geom_point()+
+      geom_hline(aes(yintercept=1))+
+     scale_x_continuous(limits = c(2005, 2015), breaks = c(2005, 2007, 2009, 2011, 2013, 2015))+
+     ylab= "Mean ratio to next unpassaged"
+
+
+
+by_cond_ratio_to_pooled <- ggplot(data=by_cond100, aes(x=year, y=mean_ratio_to_pooled, group=passage, color=passage)) +
+      geom_line() +
+      geom_point() +
+      geom_hline(aes(yintercept=1))+
+     scale_x_continuous(limits = c(2005, 2015), breaks = c(2005, 2007, 2009, 2011, 2013, 2015))+
+     ylab= "Mean ratio to next pooled"
+     
+
+plot_grid(by_cond_ratio_to_self, by_cond_ratio_to_unpassaged, by_cond_ratio_to_pooled, ncol=1)
+
+
+
+```
+
+![Neher 2014 Figure 4](C:\Users\Claire\Pictures\neherfig4.jpg)
+
+The pattern of good/bad years generally match 2005 - 2015 predictions from Neher, 2014, Fig 4.
+
+####Now, same plot, faceted by passage and  with standard deviations. The line at 1 represents a random choice of sequence. 
+```{r fig.height=8, fig.width=10, warning=FALSE, message=FALSE}
+dodge <- position_dodge(width=0.1) 
+
+
+levels(by_cond100$passage) <- c( "cell","egg","monkey","non-SIAT1","pooled" ,"SIAT1","unpassaged")
+by_cond100$passage <- factor(by_cond100$passage, levels=c("egg","monkey","cell","pooled", "non-SIAT1" ,"SIAT1","unpassaged"))
+
+#Making a plot to pull the legend from
+temp_legend_plot <- ggplot(data=by_cond100, aes(x=year, y=mean_ratio_to_self, group=passage)) +
+      geom_point(aes(size=num_seq)) +
+      labs(size="Sequences")
+
+grobs <- ggplotGrob(temp_legend_plot)$grobs
+legend <- grobs[[which(sapply(grobs, function(x) x$name) == "guide-box")]]
+
+        
+by_cond_ratio_to_self_sd <- ggplot(data=by_cond100, aes(x=year, y=mean_ratio_to_self, group=passage, color=passage)) +
+      geom_errorbar(position = dodge, aes(ymin=mean_ratio_to_self + sd_ratio_to_self, ymax= mean_ratio_to_self - sd_ratio_to_self)) +
+      geom_line()+
+      geom_point(aes(size=num_seq))+
+      geom_hline(aes(yintercept=1)) +
+      theme(axis.title.x=element_blank(), axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")+
+      scale_x_continuous(limits = c(2005, 2015), breaks = c(2005, 2007, 2009, 2011, 2013))+
+      facet_wrap(~passage, nrow=1)+
+      ylab("Mean ratio to self")+
+      scale_color_manual(values=palette) 
+
+
+by_cond_ratio_to_unpassaged_sd <- ggplot(data=by_cond100, aes(x=year, y=mean_ratio_to_unpassaged, group=passage, color=passage)) +
+      geom_errorbar(position = dodge, aes(ymin=mean_ratio_to_unpassaged + sd_ratio_to_unpassaged, ymax= mean_ratio_to_unpassaged - sd_ratio_to_unpassaged)) +
+      geom_line()+
+      geom_point(aes(size=num_seq))+
+      geom_hline(aes(yintercept=1))+
+      theme(axis.title.x=element_blank(), axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")+
+      scale_x_continuous(limits = c(2005, 2015), breaks = c(2005, 2007, 2009, 2011, 2013)) +
+      facet_wrap(~passage, nrow=1)+
+      scale_color_manual(values=palette) +
+      ylab("Mean ratio to unpassaged")
+
+by_cond_ratio_to_pooled_sd <- ggplot(data=by_cond100, aes(x=year, y=mean_ratio_to_pooled, group=passage, color=passage)) +
+      geom_errorbar(position = dodge, aes(ymin=mean_ratio_to_pooled + sd_ratio_to_pooled, ymax= mean_ratio_to_pooled - sd_ratio_to_pooled)) +
+      geom_line() +
+      theme(axis.title.x=element_blank(), axis.text.x = element_text(angle = 45, hjust = 1),legend.position = "none")+
+      geom_point(aes(size=num_seq)) +
+      geom_hline(aes(yintercept=1))+
+      scale_x_continuous(limits = c(2005, 2015), breaks = c(2005, 2007, 2009, 2011, 2013)) +
+      facet_wrap(~passage, nrow=1) +
+      scale_color_manual(values=palette) +
+      ylab("Mean ratio to pooled")
+     
+#by_cond_ratio_to_pooled_sd
+
+prow_plot <- plot_grid(by_cond_ratio_to_self_sd, by_cond_ratio_to_unpassaged_sd, by_cond_ratio_to_pooled_sd, nrow=3)
+final_plot <- plot_grid(prow_plot, legend, ncol = 2, rel_widths = c(3, .3))
+final_plot 
+png(file="figS3.png", width=13, height=8, units="in", res = 300)
+print(final_plot)
+dev.off()
+
+
+```
+
+
+
+
+####But after this, I wanted to know what this ratio score meant in terms of actual sequence prediction. Do more highly ranked sequences predict hamming distance to the following year? I took every sequence in every year, and took the hamming distance of each sequence to the following year.
+
+```{r eval=FALSE, echo=FALSE}
+lbi100_seqs <- read.table("single_year_analysis_10draws_sequences.txt", header=TRUE, sep="\t")
+```
+
+```{r warning=FALSE, message=FALSE}
+
+lbi_allranks <- read.table("single_year_analysis_allranks.txt", header=TRUE, sep="\t")
+
+```
+
+
+```{r warning=FALSE, message=FALSE}
+lbi_allranks$hamming_to_next_self <- as.numeric(as.character(lbi_allranks$hamming_to_next_self))
+lbi_allranks$hamming_to_next_unpassaged <- as.numeric(as.character(lbi_allranks$hamming_to_next_unpassaged ))
+lbi_allranks$hamming_to_next_pooled <- as.numeric(as.character(lbi_allranks$hamming_to_next_pooled))
+
+```
+
+
+```{r eval=FALSE, echo=FALSE}
+ggplot(data=lbi_allranks, aes(x=rank, y=LBI, color=passage)) +
+     geom_point()
+
+
+```
+
+
+Formatting missing data
+```{r fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
+passages <- c("egg", "siat", "siat", "siat", "siat", "siat", "monkey")
+years  <- c(2008, 2005, 2006, 2007,2008, 2012, 2008)
+
+
+missing_data <- data.frame(passages, years)
+names(missing_data) <- c("passage","year")
+
+lbi_allranks_miss<-rbind.fill(missing_data, lbi_allranks)
+lbi_allranks_miss$passage <- factor(lbi_allranks_miss$passage, levels=unique(as.character(lbi_allranks_miss$passage)) )
+
+dodge <- position_dodge(width=0.3) 
+
+```
+
+
+
+Combining all years (2005-2015) and passages gives no correlation between rank and hamming distance to following year's ancestral sequence. Rank doesn't predict hamming distance to the following season.
+
+```{r fig.height=6, fig.width=12, warning=FALSE, message=FALSE}
+
+
+lbi_allranks_combined_to_pooled_10 <-ggplot(data=lbi_allranks_miss, aes(x=rank, y=hamming_to_next_pooled, color=passage)) +
+     geom_point(position=dodge) +
+     scale_x_continuous(limits = c(0, 10), breaks = 1:10)  +
+     theme(legend.position="none")
+
+
+lbi_allranks_combined_to_pooled_50 <-ggplot(data=lbi_allranks_miss, aes(x=rank, y=hamming_to_next_pooled, color=passage)) +
+     geom_point(position=dodge) +
+     scale_x_continuous(limits = c(0, 50))  
+
+lbi_allranks_combined_to_pooled_500 <-ggplot(data=lbi_allranks_miss, aes(x=rank, y=hamming_to_next_pooled, color=passage)) +
+     geom_point(position=dodge) +
+     scale_x_continuous(limits = c(0, 500)) +
+     theme(legend.position="none")
+
+lbi_allranks_combined_to_pooled_max <-ggplot(data=lbi_allranks_miss, aes(x=rank, y=hamming_to_next_pooled, color=passage)) +
+     geom_point(position=dodge) 
+
+plot_grid(lbi_allranks_combined_to_pooled_10, lbi_allranks_combined_to_pooled_50, lbi_allranks_combined_to_pooled_500, lbi_allranks_combined_to_pooled_max, ncol=2)
+
+```
+
+Dividing predictions by year gives many slope = 0 trends
+```{r fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
+
+
+lbi_allrank_year_to_pooled <- ggplot(data=lbi_allranks, aes(x=rank, y=hamming_to_next_pooled, color=passage)) +
+     geom_point(position=dodge) +
+     scale_x_continuous(limits = c(0, 50)) +
+     facet_wrap(~year,ncol=5)
+     
+     
+lbi_allrank_year_to_pooled
+```
+
+
+Dividing predictions by year and passage, LBI rank vs hamming distance to next year's ancestor gives a few trends. 
+
+```{r fig.height=12, fig.width=12, warning=FALSE, message=FALSE}
+
+
+lbi_allranks_to_pooled_year_passage <- ggplot(data=lbi_allranks_miss, aes(x=rank, y=hamming_to_next_pooled, color=passage)) +
+     geom_point(position=dodge) +
+     scale_x_continuous(limits = c(0, 70)) +
+     facet_wrap(~year + passage, ncol=7) +
+     theme(legend.position="none")
+
+     
+lbi_allranks_to_pooled_year_passage
+
+
+#lbi_allranks_to_pooled_year_passage <- ggplot(data=lbi_allranks_miss, aes(x=passage, #y=hamming_to_next_pooled, color=tophit)) +
+#     geom_crossbar() + 
+     #geom_violin() +
+     #scale_x_continuous(limits = c(0, 70)) +
+#     theme(legend.position="none")
+     
+#lbi_allranks_to_pooled_year_passage
+
+     
+```
+
+
+TO DO: look at where the top hit sits in the distribution of hamming distances.
+

@@ -9,10 +9,19 @@
 
 cd ~/influenza_passaging_effects/scripts
 
-bash sort_conditions.sh eggmatched20052015 samp
-bash sort_conditions.sh siatmatched20052015 samp
-bash sort_conditions.sh monkeymatched20052015 samp
-bash sort_conditions.sh unpassagedmatched20052015 samp
-bash sort_conditions.sh unpassagedmatched2014 samp
-bash sort_conditions.sh allsequences20052015 complete
+#bash sort_conditions.sh eggmatched20052015 samp manual
+#bash sort_conditions.sh siatmatched20052015 samp manual
+#bash sort_conditions.sh monkeymatched20052015 samp manual
+#bash sort_conditions.sh unpassagedmatched20052015 samp manual
+#bash sort_conditions.sh unpassagedmatched2014 samp manual
+#bash sort_conditions.sh allsequences20052015 complete manual
+
+#bash sort_conditions.sh 2010
+#bash sort_conditions.sh allsequences20052015 complete manual
+#bash sort_conditions.sh allsequencesSingleyears div manual
+#bash sort_conditions_LBI.sh sampleSingleyears samp 
+#bash sort_conditions.sh singleserial20052015 samp manual
+
+
+
 

@@ -1,0 +1,2 @@
+#name	rank	LBI
+S1_|_A_COLORADO_04_2008	1	0
